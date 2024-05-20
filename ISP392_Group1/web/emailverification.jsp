@@ -41,26 +41,27 @@
                                 </div>
                                 <div class="d-flex">
                                     <div class="w-100">
-                                        <h5 class="mb-4">Please enter OTP code that has been sent to your email.</h5>
+                                        <h5 class="mb-4">Please enter CODE that has been sent to your email.</h5>
                                     </div>
 
                                 </div>
-                                <form action="#" class="signin-form">
+                                <form action="verify" method="post" class="signin-form">
                                     <div class="form-group mt-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" required>
-                                            <label class="form-control-placeholder" for="username">OTP</label>
+                                            <input type="text" class="form-control" name="authcode" required>
+                                            <label class="form-control-placeholder" for="authcode">Code</label>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="form-control btn btn-primary rounded submit px-3">Verify</button>
                                         </div>
                                     </div>
                                 </form>
-                                <p class="text-center">No OTP sent? <a data-toggle="tab" href="#signup">Resend</a></p>
+                                <p class="text-center">No CODE sent? <a data-toggle="tab" href="#signup">Resend</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.js"></script>

@@ -44,28 +44,28 @@
                                         </p>
                                     </div>
                                 </div>
-                                <form action="#" class="signin-form">
+                                <form action="register" method="post" class="signin-form">
                                     <div class="form-group mt-3">
-                                        <input type="text" class="form-control" required>
-                                        <label class="form-control-placeholder" for="username">Username</label>
+                                        <input type="text" class="form-control" name="username" required>
+                                        <label class="form-control-placeholder" for="username" >Username</label>
                                     </div>
                                     <div class="form-group mt-3">
-                                        <input type="text" class="form-control" required>
-                                        <label class="form-control-placeholder" for="email">Email</label>
+                                        <input type="email" class="form-control" name="email" required>
+                                        <label class="form-control-placeholder" for="email" name="email">Email</label>
                                     </div>
 <!--                                    <div class="form-group mt-3">
                                         <input type="text" class="form-control" required>
                                         <label class="form-control-placeholder" for="phone">Phone Number</label>
                                     </div>-->
                                     <div class="form-group">
-                                        <input id="password-field" type="password" class="form-control" required>
-                                        <label class="form-control-placeholder" for="password">Password</label>
-                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        <input id="password-field" type="password" class="form-control" name="password" required>
+                                        <label class="form-control-placeholder" for="password"  >Password</label>
+                                        <span  class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
                                     <div class="form-group">
-                                        <input id="password-field" type="password" class="form-control" required>
-                                        <label class="form-control-placeholder" for=" repeat-password">Repeat Password</label>
-                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        <input id="password-field" type="password" class="form-control" name="rePassword" required>
+                                        <label class="form-control-placeholder" for=" repeat-password" >Repeat Password</label>
+                                        <span  class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
 <!--                                    <div class="form-group">
                                         <input id="password-field" type="text" class="form-control" required>
@@ -88,6 +88,7 @@
                                     </div>
                                     
                                 </form>
+                                <h3 style="color: red">${requestScope.error}</h3>
                                 <p class="text-center">Already a member? <a  href="login.jsp">Sign In</a></p>
                             </div>
                         </div>
