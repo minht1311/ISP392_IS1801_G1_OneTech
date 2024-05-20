@@ -80,10 +80,10 @@ public class DAO extends DBContext {
 
     public void insertUserUsingGoogle(Account u) {
         try {
-            String strSQL = "INSERT INTO Account (email, password, auth_method ) VALUES (?, NULL, ?)";
+            String strSQL = "INSERT INTO Account (email, password, auth_method) VALUES (?, NULL, ?)";
             stm = cnn.prepareStatement(strSQL);
-            stm.setString(1, u.getEmail());
-            stm.setString(2, u.getAuth_method());
+            stm.setString(1, u.email);
+            stm.setString(2, u.auth_method);
             stm.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

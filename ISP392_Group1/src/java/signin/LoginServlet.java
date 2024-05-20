@@ -98,7 +98,7 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("code");
         String accessToken = getToken(username);
         UserGoogleDto user = getUserInfo(accessToken);
-                Boolean checkUserEmail = u.checkUserEmail(user.getEmail());
+                
 
         if (u.checkUserUsingGoogle(user.getEmail())) {
             System.out.println(u.checkUserUsingGoogle(user.getEmail()));
@@ -110,7 +110,7 @@ public class LoginServlet extends HttpServlet {
            // Account newUser = new Account("", user.getEmail(), "", "google");
             Account newUser = new Account("", user.getEmail(), "", "google");
             u.insertUserUsingGoogle(newUser);
-            System.out.println(newUser.getUsername() + "123");
+            System.out.println(newUser.getEmail()+ "123");
             request.setAttribute("username", user.getEmail());
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
