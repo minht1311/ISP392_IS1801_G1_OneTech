@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.account;
+import model.Account;
 
 /**
  *
@@ -87,8 +87,12 @@ public class RegisterServlet extends HttpServlet {
             // check username duplicate
             DAO d = new DAO();
             boolean checkUser = d.checkUser(username);
+            boolean checkUserEmail = d.checkUserEmail(email);
             if (checkUser) {
                 request.setAttribute("error", "username existed");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+            } else if (checkUserEmail) {
+                request.setAttribute("error", "email has been registered");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
             } else {
                 // check re-password dulicate password
@@ -97,8 +101,8 @@ public class RegisterServlet extends HttpServlet {
                     // random code
                     EmailService sm = new EmailService();
                     String code = sm.getRandom();
-                    // create account
-                    account a = new account(username, email, password, code);
+                    // create Account
+                    Account a = new Account(username, email, password, code);
                     //send mail
                     boolean test = sm.sendEmail(a);
                     if (test) {

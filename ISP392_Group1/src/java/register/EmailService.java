@@ -12,7 +12,7 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Random;
-import model.account;
+import model.Account;
 
 /**
  *
@@ -26,7 +26,7 @@ public class EmailService {
         return String.format("%06d", number);
     }
 
-    public boolean sendEmail(account a) {
+    public boolean sendEmail(Account a) {
         String toEmail = a.getEmail();
         String fromEmail = "quangvu1922@gmail.com";
         String password = "gdku hrng jcef abaz";

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.account;
+import model.Account;
 
 /**
  *
@@ -75,7 +75,7 @@ public class VerifyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        account a = (account) session.getAttribute("authcode");
+        Account a = (Account) session.getAttribute("authcode");
         DAO d = new DAO();
 
         String code = request.getParameter("authcode");
