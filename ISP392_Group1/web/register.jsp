@@ -53,10 +53,10 @@
                                         <input type="text" class="form-control" required>
                                         <label class="form-control-placeholder" for="email">Email</label>
                                     </div>
-                                    <div class="form-group mt-3">
+<!--                                    <div class="form-group mt-3">
                                         <input type="text" class="form-control" required>
                                         <label class="form-control-placeholder" for="phone">Phone Number</label>
-                                    </div>
+                                    </div>-->
                                     <div class="form-group">
                                         <input id="password-field" type="password" class="form-control" required>
                                         <label class="form-control-placeholder" for="password">Password</label>
@@ -67,28 +67,28 @@
                                         <label class="form-control-placeholder" for=" repeat-password">Repeat Password</label>
                                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
-                                    <div class="form-group">
+<!--                                    <div class="form-group">
                                         <input id="password-field" type="text" class="form-control" required>
                                         <label class="form-control-placeholder" for="first-name">First Name</label>
                                     </div>
                                     <div class="form-group">
                                         <input id="password-field" type="text" class="form-control" required>
                                         <label class="form-control-placeholder" for="last-name">Last Name</label>
-                                    </div>
-                                    <div class="form-group">
+                                    </div>-->
+<!--                                    <div class="form-group">
                                         <input id="date-of-birth-field" type="date" class="form-control" required>
                                         <label class="form-control-placeholder" for="dob"></label>
-                                    </div>
-                                    <div class="form-group">
+                                    </div>-->
+<!--                                    <div class="form-group">
                                         <input id="address-field" type="text" class="form-control" required>
                                         <label class="form-control-placeholder" for="address">Address</label>
-                                    </div>
+                                    </div>-->
                                     <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Get OTP</button>
+                                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign Up</button>
                                     </div>
                                     
                                 </form>
-                                <p class="text-center">Already a member? <a data-toggle="tab" href="#signup">Sign In</a></p>
+                                <p class="text-center">Already a member? <a  href="login.jsp">Sign In</a></p>
                             </div>
                         </div>
                     </div>
