@@ -83,7 +83,7 @@ public class DAO extends DBContext {
             String strSQL = "INSERT INTO Account (email, password, auth_method) VALUES (?, NULL, ?)";
             stm = cnn.prepareStatement(strSQL);
             stm.setString(1, u.email);
-            stm.setString(2, u.auth_method);
+            stm.setString(2, "google");
             stm.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
