@@ -98,7 +98,6 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("code");
         String accessToken = getToken(username);
         UserGoogleDto user = getUserInfo(accessToken);
-                
 
         if (u.checkUserUsingGoogle(user.getEmail())) {
             System.out.println(u.checkUserUsingGoogle(user.getEmail()));
@@ -106,11 +105,11 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("home.jsp").forward(request, response);
 
         } else {
-            
-           // Account newUser = new Account("", user.getEmail(), "", "google");
+
+            // Account newUser = new Account("", user.getEmail(), "", "google");
             Account newUser = new Account("", user.getEmail(), "", "google");
             u.insertUserUsingGoogle(newUser);
-            System.out.println(newUser.getEmail()+ "123");
+            System.out.println(newUser.getEmail() + "123");
             request.setAttribute("username", user.getEmail());
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
@@ -131,7 +130,8 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String captcha = request.getParameter("captcha");
         String sessionCaptcha = (String) request.getSession().getAttribute("captcha");
-
+        request.setAttribute("username", username);
+        request.setAttribute("password", password);
         DAO u = new DAO();
 
         boolean check = u.checkUser1(username, EncryptionPassword.toSHA1(password));
@@ -140,6 +140,7 @@ public class LoginServlet extends HttpServlet {
             if (sessionCaptcha != null && sessionCaptcha.equals(captcha)) {
                 // Replace this with your actual authentication logic
                 if (check) {
+
                     request.getRequestDispatcher("home.jsp").forward(request, response);
 
                 }
@@ -165,9 +166,9 @@ public class LoginServlet extends HttpServlet {
     }// </editor-fold>
 
     public static void main(String[] args) {
-        
+
         DAO u = new DAO();
-        
+
         boolean checkUserGoogle = u.checkUserUsingGoogle("sontmhe182162@fpt.edu.vn");
         System.out.println(checkUserGoogle);
 

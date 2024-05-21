@@ -6,6 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<include></include>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -88,11 +89,11 @@
                                 </div>
                                 <form action="LoginServlet" method="post" class="signin-form">
                                     <div class="form-group mt-3">
-                                        <input type="text" class="form-control" name="username" required>
+                                        <input type="text" class="form-control" name="username" required value="${username}">
                                         <label class="form-control-placeholder" for="username">Username or Email</label>
                                     </div>
                                     <div class="form-group">
-                                        <input id="password-field" type="password" name="password" class="form-control" required>
+                                        <input id="password-field" type="password" name="password"  class="form-control" required value="${password}">
                                         <label class="form-control-placeholder" for="password">Password</label>
                                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>

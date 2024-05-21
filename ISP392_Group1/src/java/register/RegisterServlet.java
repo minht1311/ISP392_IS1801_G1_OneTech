@@ -77,8 +77,10 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String passwordNotEncrypted =request.getParameter("password");
         String rePassword = request.getParameter("rePassword");
 
+       
         // check length password 
         if (password.length() < 8) {
             request.setAttribute("error", "Password is too short. At least 8 characters");

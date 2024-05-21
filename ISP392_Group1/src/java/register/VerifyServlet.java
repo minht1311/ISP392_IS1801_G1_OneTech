@@ -82,7 +82,10 @@ public class VerifyServlet extends HttpServlet {
         // check code
         if (code.equalsIgnoreCase(a.getCode())) {
             d.add(a);
-            response.sendRedirect("login.jsp");
+            request.setAttribute("username", a.username);
+            request.setAttribute("error", "Please re-enter password to sign in");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+//            response.sendRedirect("login.jsp");
         } else {
             request.setAttribute("error", "code is incorrect!!!");
             request.getRequestDispatcher("verify.jsp").forward(request, response);
