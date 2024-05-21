@@ -171,6 +171,5 @@ public class LoginServlet extends HttpServlet {
         boolean checkUserGoogle = u.checkUserUsingGoogle("sontmhe182162@fpt.edu.vn");
         System.out.println(checkUserGoogle);
 
-     
     }
 }
