@@ -77,10 +77,8 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String passwordNotEncrypted =request.getParameter("password");
         String rePassword = request.getParameter("rePassword");
 
-       
         // check length password 
         if (password.length() < 8) {
             request.setAttribute("error", "Password is too short. At least 8 characters");
@@ -90,11 +88,18 @@ public class RegisterServlet extends HttpServlet {
             DAO d = new DAO();
             boolean checkUser = d.checkUser(username);
             boolean checkUserEmail = d.checkUserEmail(email);
+            if (d.checkUserEmail(email) || d.checkUserUsingGoogle(email)) {
+             
+                if (d.getUserByEmail(email).username != null) {
+                    System.out.println("verify here 2");
+                    request.setAttribute("error", "email existed");
+                    request.getRequestDispatcher("register.jsp").forward(request, response);
+                    return;
+                }
+            }
+
             if (checkUser) {
                 request.setAttribute("error", "username existed");
-                request.getRequestDispatcher("register.jsp").forward(request, response);
-            } else if (checkUserEmail) {
-                request.setAttribute("error", "email has been registered");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
             } else {
                 // check re-password dulicate password

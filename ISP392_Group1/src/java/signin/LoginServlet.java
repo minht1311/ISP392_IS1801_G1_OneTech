@@ -19,6 +19,7 @@ import model.Account;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Form;
+import model.Account;
 
 /**
  *
@@ -39,6 +40,10 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
+        String code = request.getParameter("code");
+        String accessToken = getToken(code);
+        UserGoogleDto user = getUserInfo(accessToken);
+        System.out.println(user.getEmail());
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
@@ -90,26 +95,28 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO u = new DAO();
-//        String code = request.getParameter("code");
-//        String accessToken = getToken(code);
-//        UserGoogleDto user = getUserInfo(accessToken);
-//        System.out.println(user.getEmail());
 
         String username = request.getParameter("code");
         String accessToken = getToken(username);
         UserGoogleDto user = getUserInfo(accessToken);
-
+        System.out.println(user.getEmail());
+        System.out.println(u.checkUser(user.getEmail()));
+        //when email exists in db
         if (u.checkUserUsingGoogle(user.getEmail())) {
+            Account acc = u.getUserByEmail(user.getEmail());
             System.out.println(u.checkUserUsingGoogle(user.getEmail()));
             request.setAttribute("username", user.getEmail());
+            request.setAttribute("auth_method", "google");
             request.getRequestDispatcher("home.jsp").forward(request, response);
 
-        } else {
+        } //when email no exists
+        else {
 
-            // Account newUser = new Account("", user.getEmail(), "", "google");
             Account newUser = new Account("", user.getEmail(), "", "google");
+
             u.insertUserUsingGoogle(newUser);
-            System.out.println(newUser.getEmail() + "123");
+            System.out.println(user.getEmail() + "123");
+            request.setAttribute("auth_method", "google");
             request.setAttribute("username", user.getEmail());
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
@@ -134,13 +141,15 @@ public class LoginServlet extends HttpServlet {
         request.setAttribute("password", password);
         DAO u = new DAO();
 
+        //String email = u.getEmailByName(username);
         boolean check = u.checkUser1(username, EncryptionPassword.toSHA1(password));
 
         if (check) {
             if (sessionCaptcha != null && sessionCaptcha.equals(captcha)) {
                 // Replace this with your actual authentication logic
                 if (check) {
-
+                    request.setAttribute("username", username);
+                    request.setAttribute("auth_method", "userAndPassWord");
                     request.getRequestDispatcher("home.jsp").forward(request, response);
 
                 }
@@ -170,7 +179,8 @@ public class LoginServlet extends HttpServlet {
         DAO u = new DAO();
 
         boolean checkUserGoogle = u.checkUserUsingGoogle("sontmhe182162@fpt.edu.vn");
-        System.out.println(checkUserGoogle);
+        Account acc = u.getUserByEmail("tranminhson0505@gmail.com");
+        System.out.println(acc.code);
 
     }
 }

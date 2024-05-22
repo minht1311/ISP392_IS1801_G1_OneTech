@@ -81,7 +81,11 @@ public class VerifyServlet extends HttpServlet {
         String code = request.getParameter("authcode");
         // check code
         if (code.equalsIgnoreCase(a.getCode())) {
-            d.add(a);
+            if (d.checkUserEmail(a.email)) {
+                d.update(a);
+            } else {
+                d.add(a);
+            }
             request.setAttribute("username", a.username);
             request.setAttribute("error", "Please re-enter password to sign in");
             request.getRequestDispatcher("login.jsp").forward(request, response);
