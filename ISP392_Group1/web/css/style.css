@@ -8372,3 +8372,8 @@ h1, h2, h3, h4, h5,
         border: 1px solid transparent;
         background: #0982d7;
         color: #fff; }
+      
+.strikethrough {
+  text-decoration: line-through;
+}
+
