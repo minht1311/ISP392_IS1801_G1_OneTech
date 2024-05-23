@@ -676,9 +676,9 @@
                                     <h4 style="color: #009cea;">Tran Tuan Minh</h4>
                                     <span>Member</span>
                                     <div class="social">
-                                        <a href=""><i class="icofont-twitter"></i></a>
-                                        <a href=""><i class="icofont-facebook"></i></a>
-                                        <a href=""><i class="icofont-instagram"></i></a>
+                                        <a href="https://x.com/two_toner"><i class="icofont-twitter"></i></a>
+                                        <a href="https://www.facebook.com/minhtrantuan1311"><i class="icofont-facebook"></i></a>
+                                        <a href="https://www.instagram.com/mike_twotoner/"><i class="icofont-instagram"></i></a>
                                         <a href=""><i class="icofont-linkedin"></i></a>
                                     </div>
                                 </div>
