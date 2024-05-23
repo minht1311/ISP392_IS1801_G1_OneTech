@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="plugins/slick-1.8.0/slick.css">
 <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 
 </head>
 
@@ -1723,7 +1724,7 @@
 										<div class="banner_2_category">Game Cards</div>
 										<div class="banner_2_title">Zing</div>
 										<div class="banner_2_text">Instant code receival, no chargebacks.</div>
-										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
+							<!-- star   <div class="rating_r rating_r_4 banner_2_rating"><i class="fas fa-star"></i></i><i></i><i></i><i></i><i></i></div> -->
 										<div class="button banner_2_button"><a href="#">Explore</a></div>
 									</div>
 									
@@ -1748,7 +1749,7 @@
 										<div class="banner_2_category">Game Cards</div>
 										<div class="banner_2_title">Zing</div>
 										<div class="banner_2_text">Instant code receival, no chargebacks.</div>
-										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
+							<!-- star   <div class="rating_r rating_r_4 banner_2_rating"><i class="fas fa-star"></i></i><i></i><i></i><i></i><i></i></div> -->
 										<div class="button banner_2_button"><a href="#">Explore</a></div>
 									</div>
 									
@@ -1773,7 +1774,7 @@
 										<div class="banner_2_category">Game Cards</div>
 										<div class="banner_2_title">Zing</div>
 										<div class="banner_2_text">Instant code receival, no chargebacks.</div>
-										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
+							<!-- star   <div class="rating_r rating_r_4 banner_2_rating"><i class="fas fa-star"></i></i><i></i><i></i><i></i><i></i></div> -->
 										<div class="button banner_2_button"><a href="#">Explore</a></div>
 									</div>
 									
