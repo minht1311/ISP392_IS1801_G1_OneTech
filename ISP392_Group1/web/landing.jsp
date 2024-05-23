@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <title>OneTech</title>
+        <title>CardIO Landing</title>
         <meta content="" name="descriptison">
         <meta content="" name="keywords">
 
@@ -45,7 +45,7 @@
             <div class="container d-flex">
 
                 <div class="logo mr-auto">
-                    <h1 class="text-light"><a href="landingdemo.html" style="color: #0982d7;"><span>OneTech</span></a></h1>
+                    <h1 class="text-light"><a href="landingdemo.html" style="color: #0982d7;"><span>CardIO</span></a></h1>
                     <!-- Uncomment below if you prefer to use an image logo -->
                     <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
                 </div>
@@ -158,7 +158,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane active show" id="tab-1">
                                     <figure>
-                                        <img src="assets/img/decor/onetech-free-template.jpg" alt="" class="img-fluid">
+                                        <img src="assets/img/decor/homepage.png" alt="" class="img-fluid">
                                     </figure>
                                 </div>
                                 <div class="tab-pane" id="tab-2">
@@ -251,7 +251,9 @@
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/phonecard/download_1.jpg" class="img-fluid" alt="">
+                                <center>
+                                    <img src="assets/img/phonecard/download_1.jpg"  class="img-fluid"  alt="">
+                                </center>             
                                 <div class="portfolio-info">
                                     <h4>50K</h4>
                                     <p>Vinaphone</p>
@@ -265,7 +267,8 @@
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/phonecard/download_2.jpg" class="img-fluid" alt="">
+                                <center><img src="assets/img/phonecard/download_2.jpg" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>100K</h4>
                                     <p>Vinaphone</p>
@@ -279,7 +282,8 @@
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/phonecard/download_4.jpg" class="img-fluid" alt="">
+                                <center><img src="assets/img/phonecard/download_4.jpg" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>200K</h4>
                                     <p>Vinaphone</p>
@@ -293,7 +297,8 @@
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/phonecard/download_3.jpg" class="img-fluid" alt="">
+                                <center><img src="assets/img/phonecard/download_3.jpg" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>500K</h4>
                                     <p>Vinaphone</p>
@@ -309,7 +314,8 @@
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/phonecard/images.png" class="img-fluid" alt="">
+                                <center><img src="assets/img/phonecard/images.png" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>300K</h4>
                                     <p>Viettel</p>
@@ -323,7 +329,8 @@
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/phonecard/download_5.jpg" class="img-fluid" alt="">
+                                <center><img src="assets/img/phonecard/download_5.jpg" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>1M</h4>
                                     <p>Viettel</p>
@@ -337,7 +344,8 @@
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-card">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/gamecard/download.png" class="img-fluid" alt="">
+                                <center><img src="assets/img/gamecard/download.png" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>100K</h4>
                                     <p>Garena</p>
@@ -350,7 +358,8 @@
                         </div>
                         <div class="col-lg-4 col-md-6 portfolio-item filter-card">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/gamecard/download_4.png" class="img-fluid" alt="">
+                                <center><img src="assets/img/gamecard/download_4.png" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>200K</h4>
                                     <p>Garena</p>
@@ -363,7 +372,8 @@
                         </div>
                         <div class="col-lg-4 col-md-6 portfolio-item filter-card">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/gamecard/download_1.png" class="img-fluid" alt="">
+                                <center><img src="assets/img/gamecard/download_1.png" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>500K</h4>
                                     <p>Garena</p>
@@ -376,7 +386,8 @@
                         </div>
                         <div class="col-lg-4 col-md-6 portfolio-item filter-card">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/gamecard/download.jpg" class="img-fluid" alt="">
+                                <center><img src="assets/img/gamecard/download.jpg" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>100K</h4>
                                     <p>VCoin</p>
@@ -389,7 +400,8 @@
                         </div>
                         <div class="col-lg-4 col-md-6 portfolio-item filter-card">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/gamecard/download_2.png" class="img-fluid" alt="">
+                                <center><img src="assets/img/gamecard/download_2.png" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>200K</h4>
                                     <p>VCoin</p>
@@ -402,7 +414,8 @@
                         </div>
                         <div class="col-lg-4 col-md-6 portfolio-item filter-card">
                             <div class="portfolio-wrap">
-                                <img src="assets/img/gamecard/download_3.png" class="img-fluid" alt="">
+                                <center><img src="assets/img/gamecard/download_3.png" class="img-fluid" alt=""></center>
+                                
                                 <div class="portfolio-info">
                                     <h4>500K</h4>
                                     <p>VCoin</p>
@@ -1003,7 +1016,7 @@
 
                         <div class="col-lg-3 col-md-6">
                             <div class="footer-info">
-                                <h3 style="color: #009cea">OneTech</h3>
+                                <h3 style="color: #009cea">CardIO</h3>
                                 <p>
                                     FPT University <br>
                                     Hanoi, Vietnam<br><br>
