@@ -510,7 +510,7 @@
 
                     <div class="row" data-aos="zoom-in">
                         <div class="col-lg-9 text-center text-lg-left">
-                            <h3 style="color: #009cea">Go To Our Website</h3>
+                            <h3 style="color: #009cea">Main Website</h3>
                             <p>Go to our website to experience user-friendly access to the latest tech products and gift cards, with convenience and reliability. Enjoy a wide selection of items, instant delivery, secure payment options, and responsive customer support. We collaborate with trusted business partners to bring you the 
                                 best deals and innovations in the tech industry.</p>
                         </div>
@@ -761,7 +761,7 @@
 
                         <div class="col-lg-3 col-md-4 col-xs-6" data-aos="zoom-in" data-aos-delay="400">
                             <div class="client-logo">
-                                <img src="assets/img/clients/download.jpg" class="img-fluid" alt="">
+                                <img src="assets/img/clients/laz.png" class="img-fluid" alt="">
                             </div>
                         </div>
 
