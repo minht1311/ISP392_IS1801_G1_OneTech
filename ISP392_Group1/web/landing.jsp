@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -534,7 +536,7 @@
                         <div class="testimonial-item">
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Uy t�n vcl!!
+                                Uy tín vcl!!
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                             <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
@@ -545,7 +547,7 @@
                         <div class="testimonial-item">
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Website qu� ??p qu� d? d�ng <3
+                                Website quá đẹp quá dễ dùng <3
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                             <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
@@ -556,8 +558,8 @@
                         <div class="testimonial-item">
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Em mua th? ?i?n tho?i ? ?�y r?i nh� mn. Thanh to�n
-                                c�i c� ti?n v? ?i?n tho?i lu�n.
+                                Em mua thẻ điện thoại ở đây rồi nhé mn. Thanh toán
+                                cái có tiền về điện thoại luôn.
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                             <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
@@ -568,8 +570,8 @@
                         <div class="testimonial-item">
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Ch?m s�c kh�ch h�ng c?c t?t. M�nh h?i nhi?u kinh kh?ng
-                                m� h? v?n tr? l?i support t?ng t� m?t.
+                                Chăm sóc khách hàng cực tốt. Mình hỏi nhiều kinh khủng
+                                mà họ vẫn trả lời support từng tí một.
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                             <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
@@ -580,7 +582,7 @@
                         <div class="testimonial-item">
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Kh�ng c� g� ?? ch�!!!
+                                Không có gì để chê!!!
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                             <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
