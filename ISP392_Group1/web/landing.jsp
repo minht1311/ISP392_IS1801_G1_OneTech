@@ -549,7 +549,7 @@
                         <div class="testimonial-item">
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Uy tín vcl!!
+                                Không có gì để chê!!
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                             <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
@@ -595,7 +595,7 @@
                         <div class="testimonial-item">
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Không có gì để chê!!!
+                                Uy tín vcl!!!
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                             <img src="assets/img/testimonials/elige.png" class="testimonial-img" alt="">
