@@ -588,7 +588,7 @@
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                             <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                            <h3 style="color: #009cea;">Matt Brandon</h3>
+                            <h3 style="color: #009cea;">Willem Rebergen</h3>
                             <h4>Customer</h4>
                         </div>
 
@@ -598,8 +598,8 @@
                                 Không có gì để chê!!!
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
-                            <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                            <h3 style="color: #009cea;">John Larson</h3>
+                            <img src="assets/img/testimonials/elige.png" class="testimonial-img" alt="">
+                            <h3 style="color: #009cea;">Jonathan Sins</h3>
                             <h4>Customer</h4>
                         </div>
 
