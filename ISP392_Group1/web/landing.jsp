@@ -598,7 +598,7 @@
                 <div class="container">
 
                     <div class="section-title" data-aos="fade-up">
-                        <h2 style="color: #009cea;:">Team</h2>
+                        <h2 style="color: #009cea;">Team</h2>
                         <p>Meet our dedicated team of professionals who work tirelessly to bring you the best services and products</p>
                     </div>
 
