@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <title>CardIO Landing</title>
+        <title>OneTech Landing</title>
         <meta content="" name="descriptison">
         <meta content="" name="keywords">
 
@@ -45,7 +45,7 @@
             <div class="container d-flex">
 
                 <div class="logo mr-auto">
-                    <h1 class="text-light"><a href="landingdemo.html" style="color: #0982d7;"><span>CardIO</span></a></h1>
+                    <h1 class="text-light"><a href="landingdemo.html" style="color: #0982d7;"><span>OneTech</span></a></h1>
                     <!-- Uncomment below if you prefer to use an image logo -->
                     <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
                 </div>
@@ -1016,7 +1016,7 @@
 
                         <div class="col-lg-3 col-md-6">
                             <div class="footer-info">
-                                <h3 style="color: #009cea">CardIO</h3>
+                                <h3 style="color: #009cea">OneTech</h3>
                                 <p>
                                     FPT University <br>
                                     Hanoi, Vietnam<br><br>
