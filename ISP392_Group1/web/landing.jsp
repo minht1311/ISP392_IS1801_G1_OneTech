@@ -600,7 +600,7 @@
                             </p>
                             <img src="assets/img/testimonials/elige.png" class="testimonial-img" alt="">
                             <h3 style="color: #009cea;">Jonathan Sins</h3>
-                            <h4>Customer</h4>
+                            <h4>Co-owner, Refrag</h4>
                         </div>
 
                     </div>
