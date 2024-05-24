@@ -89,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
             boolean checkUser = d.checkUser(username);
             boolean checkUserEmail = d.checkUserEmail(email);
             if (d.checkUserEmail(email) || d.checkUserUsingGoogle(email)) {
-             
+
                 if (d.getUserByEmail(email).username != null) {
                     System.out.println("verify here 2");
                     request.setAttribute("error", "email existed");
@@ -110,16 +110,38 @@ public class RegisterServlet extends HttpServlet {
                     String code = sm.getRandom();
                     // create Account
                     Account a = new Account(username, email, password, code);
-                    //send mail
-                    boolean test = sm.sendEmail(a);
-                    if (test) {
-                        HttpSession session = request.getSession();
-                        session.setAttribute("authcode", a);
-                        response.sendRedirect("emailverification.jsp");
-                    } else {
-                        request.setAttribute("error", "Password does not match Re-password");
-                        request.getRequestDispatcher("register.jsp").forward(request, response);
+                    // create thread send mail
+                    Thread emailThread = new Thread(() -> {
+                        //send mail
+                        boolean test = sm.sendEmail(a);
+                        if (test) {
+                            HttpSession session = request.getSession();
+                            session.setAttribute("authcode", a);
+                            try {
+                                response.sendRedirect("emailverification.jsp");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            try {
+                                request.setAttribute("error", "Failed to send verification email");
+                                request.getRequestDispatcher("register.jsp").forward(request, response);
+                            } catch (ServletException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    // start thread send mail
+                    emailThread.start();
+                    try {
+                        emailThread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    request.setAttribute("error", "Password does not match Re-password");
+                    request.getRequestDispatcher("register.jsp").forward(request, response);
                 }
             }
         }
