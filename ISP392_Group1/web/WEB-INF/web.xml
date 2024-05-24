@@ -24,4 +24,7 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
+    <listener>
+        <listener-class>signin.AppContextListener</listener-class>
+    </listener>
 </web-app>

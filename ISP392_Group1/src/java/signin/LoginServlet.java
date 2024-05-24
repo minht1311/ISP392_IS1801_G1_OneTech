@@ -102,7 +102,7 @@ public class LoginServlet extends HttpServlet {
         System.out.println(user.getEmail());
         System.out.println(u.checkUser(user.getEmail()));
         //when email exists in db
-        if (u.checkUserUsingGoogle(user.getEmail())) {
+        if (u.checkUserEmail(user.getEmail())) {
             Account acc = u.getUserByEmail(user.getEmail());
             System.out.println(u.checkUserUsingGoogle(user.getEmail()));
             request.setAttribute("username", user.getEmail());
@@ -136,23 +136,20 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String captcha = request.getParameter("captcha");
-        String sessionCaptcha = (String) request.getSession().getAttribute("captcha");
+        String captchaId = request.getParameter("captcha_id");
+        String sessionCaptcha = (String) request.getSession().getAttribute(captchaId);
         request.setAttribute("username", username);
         request.setAttribute("password", password);
         DAO u = new DAO();
 
-        //String email = u.getEmailByName(username);
         boolean check = u.checkUser1(username, EncryptionPassword.toSHA1(password));
 
         if (check) {
             if (sessionCaptcha != null && sessionCaptcha.equals(captcha)) {
                 // Replace this with your actual authentication logic
-                if (check) {
-                    request.setAttribute("username", username);
-                    request.setAttribute("auth_method", "userAndPassWord");
-                    request.getRequestDispatcher("home.jsp").forward(request, response);
-
-                }
+                request.setAttribute("username", username);
+                request.setAttribute("auth_method", "userAndPassWord");
+                request.getRequestDispatcher("home.jsp").forward(request, response);
             } else {
                 request.setAttribute("errorMessage", "Invalid CAPTCHA");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -161,7 +158,6 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("errorMessage", "Invalid Username or Password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-
     }
 
     /**
