@@ -56,7 +56,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <p class="text-center">No CODE sent? <a data-toggle="tab" href="#signup">Resend</a></p>
+                                <p class="text-center">No CODE sent? <a href="ResendMail">Resend</a></p>
                             </div>
                         </div>
                     </div>

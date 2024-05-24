@@ -60,12 +60,12 @@
                                     <div class="form-group">
                                         <input id="password-field" type="password" class="form-control" name="password" required>
                                         <label class="form-control-placeholder" for="password"  >Password</label>
-                                        <span  class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
                                     <div class="form-group">
                                         <input id="password-field" type="password" class="form-control" name="rePassword" required>
                                         <label class="form-control-placeholder" for=" repeat-password" >Repeat Password</label>
-                                        <span  class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
 <!--                                    <div class="form-group">
                                         <input id="password-field" type="text" class="form-control" required>
