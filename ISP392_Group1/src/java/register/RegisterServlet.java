@@ -79,72 +79,62 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String rePassword = request.getParameter("rePassword");
 
-        // check length password 
+        // check length password
         if (password.length() < 8) {
             request.setAttribute("error", "Password is too short. At least 8 characters");
             request.getRequestDispatcher("register.jsp").forward(request, response);
-        } else {
-            // check username duplicate
-            DAO d = new DAO();
-            boolean checkUser = d.checkUser(username);
-            boolean checkUserEmail = d.checkUserEmail(email);
-            if (d.checkUserEmail(email) || d.checkUserUsingGoogle(email)) {
+            return;
+        }
 
-                if (d.getUserByEmail(email).username != null) {
-                    System.out.println("verify here 2");
-                    request.setAttribute("error", "email existed");
-                    request.getRequestDispatcher("register.jsp").forward(request, response);
-                    return;
-                }
-            }
-
-            if (checkUser) {
-                request.setAttribute("error", "username existed");
+        // check username duplicate
+        DAO d = new DAO();
+        boolean checkUser = d.checkUser(username);
+        boolean checkUserEmail = d.checkUserEmail(email);
+        if (checkUserEmail || d.checkUserUsingGoogle(email)) {
+            if (d.getUserByEmail(email).getUsername() != null) {
+                request.setAttribute("error", "Email already exists");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
-            } else {
-                // check re-password dulicate password
-                if (rePassword.equals(password)) {
-                    password = EncryptionPassword.toSHA1(password);
-                    // random code
-                    EmailService sm = new EmailService();
-                    String code = sm.getRandom();
-                    // create Account
-                    Account a = new Account(username, email, password, code);
-                    // create thread send mail
-                    Thread emailThread = new Thread(() -> {
-                        //send mail
-                        boolean test = sm.sendEmail(a);
-                        if (test) {
-                            HttpSession session = request.getSession();
-                            session.setAttribute("authcode", a);
-                            try {
-                                response.sendRedirect("emailverification.jsp");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            try {
-                                request.setAttribute("error", "Failed to send verification email");
-                                request.getRequestDispatcher("register.jsp").forward(request, response);
-                            } catch (ServletException | IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-                    // start thread send mail
-                    emailThread.start();
-                    try {
-                        emailThread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    request.setAttribute("error", "Password does not match Re-password");
-                    request.getRequestDispatcher("register.jsp").forward(request, response);
-                }
+                return;
             }
         }
+
+        if (checkUser) {
+            request.setAttribute("error", "Username already exists");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
+
+        // check re-passwrod matches password
+        if (!rePassword.equals(password)) {
+            request.setAttribute("error", "Passwords do not match");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
+        // hash password
+        password = EncryptionPassword.toSHA1(password);
+        // send mail
+        EmailService sm = new EmailService();
+        String code = sm.getRandom();
+        // create Account
+        Account a = new Account(username, email, password, code);
+        HttpSession session = request.getSession();
+            // create thread to send mail
+            Thread emailThread = new Thread(() -> {
+                // send mail
+                boolean test = sm.sendEmail(a);
+                synchronized (session) {
+                    if (test) {
+                        // If email is sent successfully, store the account in session for verification
+                        session.setAttribute("authcode", a);
+                    } else {
+                        System.err.println("Failed to send verification email");
+                    }
+                }
+            });
+            // start thread to send mail
+            emailThread.start();
+        // verify code
+        response.sendRedirect("emailverification.jsp");
     }
 
     /**

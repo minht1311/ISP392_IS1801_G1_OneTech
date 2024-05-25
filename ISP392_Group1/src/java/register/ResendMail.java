@@ -66,27 +66,25 @@ public class ResendMail extends HttpServlet {
             EmailService sm = new EmailService();
             Thread emailThread = new Thread(() -> {
                 boolean test = sm.sendEmail(account);
-                if (test) {
-                    session.setAttribute("authcode", account);
-                    try {
-                        response.sendRedirect("emailverification.jsp");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        request.setAttribute("error", "Failed to resend verification email");
-                        request.getRequestDispatcher("register.jsp").forward(request, response);
-                    } catch (ServletException | IOException e) {
-                        e.printStackTrace();
+                synchronized (session) {
+                    if (test) {
+                        session.setAttribute("authcode", account);
+                        try {
+                            response.sendRedirect("emailverification.jsp");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            request.setAttribute("error", "Failed to resend verification email");
+                            request.getRequestDispatcher("register.jsp").forward(request, response);
+                        } catch (ServletException | IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
-
-            // Bắt đầu luồng gửi email
             emailThread.start();
-
-            // Đợi luồng gửi email hoàn thành
             try {
                 emailThread.join();
             } catch (InterruptedException e) {
