@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Account;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
@@ -140,6 +141,8 @@ public class LoginServlet extends HttpServlet {
         String sessionCaptcha = (String) request.getSession().getAttribute(captchaId);
         request.setAttribute("username", username);
         request.setAttribute("password", password);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", username);
         DAO u = new DAO();
 
         boolean check = u.checkUser1(username, EncryptionPassword.toSHA1(password));
