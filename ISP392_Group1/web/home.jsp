@@ -25,50 +25,14 @@
 <body>
 
 <div class="super_container">
-	
+
 	<!-- Header -->
-	
+
 	<header class="header">
 
 		<!-- Top Bar -->
 
-		<div class="top_bar">
-			<div class="container">
-				<div class="row">
-					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/phone.png" alt=""></div>+38 068 005 3570</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/mail.png" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#234542505750424f465063444e424a4f0d404c4e"><span class="__cf_email__" data-cfemail="34525547404755585147745359555d581a575b59">[email&#160;protected]</span></a></div>
-						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
-								<ul class="standard_dropdown top_bar_dropdown">
-									<li>
-										<a href="#">English<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">Italian</a></li>
-											<li><a href="#">Spanish</a></li>
-											<li><a href="#">Japanese</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="#">đ VND<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">EUR Euro</a></li>
-											<li><a href="#">GBP British Pound</a></li>
-											<li><a href="#">USD US dollar</a></li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-							<div class="top_bar_user">
-								<div class="user_icon"><img src="images/user.svg" alt=""></div>
-								<div><a href="register.jsp">Register</a></div>
-								<div><a href="login.jsp">Sign in</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>		
-		</div>
+		<jsp:include page="menu.jsp"></jsp:include>
 
 		<!-- Header Main -->
 
@@ -114,15 +78,36 @@
 					<!-- Wishlist -->
 					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
 						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                                                <%
+                                                String user = (String) session.getAttribute("user");
+                                                if (user != null) {
+                                                %>
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
-								<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
+								<div class="wishlist_icon"><a href="login.jsp"><img src="images/heart.png" alt=""></a></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Wishlist</a></div>
+									<div class="wishlist_text"><a href="login.jsp">Wishlist</a></div>
 									<div class="wishlist_count">115</div>
 								</div>
 							</div>
-
+                                                <%
+                                                    } else {
+                                                %>
+                                                <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+                                                                <a href="login.jsp"><img src="images/heart.png" alt=""></a>
+								<div class="wishlist_icon">
+                                                                            <a href="login.jsp"><img src="images/wishlist.png" alt=""></a>
+									</div>
+								<div class="wishlist_content">
+									<div class="wishlist_text"><a href="login.jsp">Wishlist</a></div>
+								</div>
+							</div>
+                                                <%
+                                                    }
+                                                %>
 							<!-- Cart -->
+                                                <%
+                                                if (user != null) {
+                                                %>
 							<div class="cart">
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
@@ -135,19 +120,35 @@
 									</div>
 								</div>
 							</div>
+                                                <%
+                                                    } else {
+                                                %>
+                                                        <div class="cart">
+								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
+									<div class="cart_icon">
+                                                                            <a href="login.jsp"><img src="images/cart2.png" alt=""></a>
+									</div>
+									<div class="cart_content">
+										<div class="cart_text"><a href="login.jsp">Cart</a></div>
+									</div>
+								</div>
+							</div>
+                                                <%
+                                                    }
+                                                %>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Main Navigation -->
 
 		<nav class="main_nav">
 			<div class="container">
 				<div class="row">
 					<div class="col">
-						
+
 						<div class="main_nav_content d-flex flex-row">
 
 							<!-- Categories Menu -->
@@ -195,7 +196,7 @@
 									<li class="hassubs">
 										<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											
+
 											<li><a href="#">VCoin<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="#">Vinaphone<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="#">Steam<i class="fas fa-chevron-down"></i></a></li>
@@ -250,16 +251,16 @@
 				</div>
 			</div>
 		</nav>
-		
+
 		<!-- Menu -->
 
 		<div class="page_menu">
 			<div class="container">
 				<div class="row">
 					<div class="col">
-						
+
 						<div class="page_menu_content">
-							
+
 							<div class="page_menu_search">
 								<form action="#">
 									<input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
@@ -326,7 +327,7 @@
 								<li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
 								<li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
 							</ul>
-							
+
 							<div class="menu_contact">
 								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+38 068 005 3570</div>
 								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#fd9b9c8e898e9c91988ebd9a909c9491d39e9290"><span class="__cf_email__" data-cfemail="5f393e2c2b2c3e333a2c1f38323e3633713c3032">[email&#160;protected]</span></a></div>
@@ -338,7 +339,7 @@
 		</div>
 
 	</header>
-	
+
 	<!-- Banner -->
 
 	<div class="banner">
@@ -366,7 +367,7 @@
 
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
-					
+
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="images/char_1.png" alt=""></div>
 						<div class="char_content">
@@ -378,7 +379,7 @@
 
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
-					
+
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="images/char_2.png" alt=""></div>
 						<div class="char_content">
@@ -390,7 +391,7 @@
 
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
-					
+
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="images/char_3.png" alt=""></div>
 						<div class="char_content">
@@ -402,7 +403,7 @@
 
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
-					
+
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="images/char_4.png" alt=""></div>
 						<div class="char_content">
@@ -421,16 +422,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
-					
+
 					<!-- Deals -->
 
 					<div class="deals">
 						<div class="deals_title">Deals of the Week</div>
 						<div class="deals_slider_container">
-							
+
 							<!-- Deals Slider -->
 							<div class="owl-carousel owl-theme deals_slider">
-								
+
 								<!-- Deals Item -->
 								<div class="owl-item deals_item">
 									<div class="deals_image"><img src="images/vcoin.png" alt=""></div>
@@ -566,13 +567,13 @@
 							</div>
 
 						</div>
-                                                
+
 						<div class="deals_slider_nav_container">
 							<div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i></div>
 							<div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i></div>
 						</div>
 					</div>
-					
+
 					<!-- Featured -->
 					<div class="featured">
 						<div class="tabbed_container">
@@ -598,7 +599,7 @@
                                                 <div class="product_price discount">75.000đ<span><s>100.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Garena Card</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -619,7 +620,7 @@
 												<div class="product_price">370.000đ</div>
 												<div class="product_name"><div><a href="product.html">GATE</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
@@ -640,7 +641,7 @@
 												<div class="product_price">250.000đ</div>
 												<div class="product_name"><div><a href="product.html">Zing</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -661,7 +662,7 @@
                                                 <div class="product_price discount">150.000đ<span><s>200.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Viettel</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -682,7 +683,7 @@
 												<div class="product_price">590.000đ</div>
 												<div class="product_name"><div><a href="product.html">Spotify 12 Month</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -703,7 +704,7 @@
 												<div class="product_price">210.000đ</div>
 												<div class="product_name"><div><a href="product.html">SOHA</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -724,7 +725,7 @@
 												<div class="product_price">120.000đ</div>
 												<div class="product_name"><div><a href="product.html">Vietnammobile</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -745,7 +746,7 @@
 												<div class="product_price">80.000đ</div>
 												<div class="product_name"><div><a href="product.html">Mobifone</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -766,7 +767,7 @@
                                                                                             <div class="product_price discount">75.000đ<span><s>100.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Garena Card</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -787,7 +788,7 @@
 												<div class="product_price">370.000đ</div>
 												<div class="product_name"><div><a href="product.html">GATE</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
@@ -808,7 +809,7 @@
 												<div class="product_price">250.000đ</div>
 												<div class="product_name"><div><a href="product.html">Zing</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -829,7 +830,7 @@
                                                                                             <div class="product_price discount">150.000đ<span><s>200.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Viettel</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -850,7 +851,7 @@
 												<div class="product_price">590.000đ</div>
 												<div class="product_name"><div><a href="product.html">Spotify 12 Month</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -871,7 +872,7 @@
 												<div class="product_price">210.000đ</div>
 												<div class="product_name"><div><a href="product.html">SOHA</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -892,7 +893,7 @@
 												<div class="product_price">120.000đ</div>
 												<div class="product_name"><div><a href="product.html">Vietnammobile</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -913,7 +914,7 @@
 												<div class="product_price">80.000đ</div>
 												<div class="product_name"><div><a href="product.html">Mobifone</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -943,7 +944,7 @@
                                                 <div class="product_price discount">75.000đ<span><s>100.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Garena Card</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -964,7 +965,7 @@
 												<div class="product_price">370.000đ</div>
 												<div class="product_name"><div><a href="product.html">GATE</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
@@ -985,7 +986,7 @@
 												<div class="product_price">250.000đ</div>
 												<div class="product_name"><div><a href="product.html">Zing</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1006,7 +1007,7 @@
                                                 <div class="product_price discount">150.000đ<span><s>200.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Viettel</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1027,7 +1028,7 @@
 												<div class="product_price">590.000đ</div>
 												<div class="product_name"><div><a href="product.html">Spotify 12 Month</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1048,7 +1049,7 @@
 												<div class="product_price">210.000đ</div>
 												<div class="product_name"><div><a href="product.html">SOHA</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1070,7 +1071,7 @@
 												<div class="product_name"><div><a href="product.html">Vietnammobile</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
-														
+
 													</div>
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
@@ -1092,7 +1093,7 @@
 												<div class="product_price">80.000đ</div>
 												<div class="product_name"><div><a href="product.html">Mobifone</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1113,7 +1114,7 @@
                                                 <div class="product_price discount">75.000đ<span><s>100.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Garena Card</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1134,7 +1135,7 @@
 												<div class="product_price">370.000đ</div>
 												<div class="product_name"><div><a href="product.html">GATE</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
@@ -1155,7 +1156,7 @@
 												<div class="product_price">250.000đ</div>
 												<div class="product_name"><div><a href="product.html">Zing</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1176,7 +1177,7 @@
                                                 <div class="product_price discount">150.000đ<span><s>200.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Viettel</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1197,7 +1198,7 @@
 												<div class="product_price">590.000đ</div>
 												<div class="product_name"><div><a href="product.html">Spotify 12 Month</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1218,7 +1219,7 @@
 												<div class="product_price">210.000đ</div>
 												<div class="product_name"><div><a href="product.html">SOHA</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1240,7 +1241,7 @@
 												<div class="product_name"><div><a href="product.html">Vietnammobile</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
-														
+
 													</div>
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
@@ -1262,7 +1263,7 @@
 												<div class="product_price">80.000đ</div>
 												<div class="product_name"><div><a href="product.html">Mobifone</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1292,7 +1293,7 @@
                                                 <div class="product_price discount">75.000đ<span><s>100.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Garena Card</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1313,7 +1314,7 @@
 												<div class="product_price">370.000đ</div>
 												<div class="product_name"><div><a href="product.html">GATE</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
@@ -1334,7 +1335,7 @@
 												<div class="product_price">250.000đ</div>
 												<div class="product_name"><div><a href="product.html">Zing</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1355,7 +1356,7 @@
                                                 <div class="product_price discount">150.000đ<span><s>200.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Viettel</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1376,7 +1377,7 @@
 												<div class="product_price">590.000đ</div>
 												<div class="product_name"><div><a href="product.html">Spotify 12 Month</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1397,7 +1398,7 @@
 												<div class="product_price">210.000đ</div>
 												<div class="product_name"><div><a href="product.html">SOHA</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1419,7 +1420,7 @@
 												<div class="product_name"><div><a href="product.html">Vietnammobile</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
-														
+
 													</div>
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
@@ -1441,7 +1442,7 @@
 												<div class="product_price">80.000đ</div>
 												<div class="product_name"><div><a href="product.html">Mobifone</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1462,7 +1463,7 @@
                                                 <div class="product_price discount">75.000đ<span><s>100.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Garena Card</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1483,7 +1484,7 @@
 												<div class="product_price">370.000đ</div>
 												<div class="product_name"><div><a href="product.html">GATE</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
@@ -1504,7 +1505,7 @@
 												<div class="product_price">250.000đ</div>
 												<div class="product_name"><div><a href="product.html">Zing</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1525,7 +1526,7 @@
                                                 <div class="product_price discount">150.000đ<span><s>200.000đ</s></span></div>
 												<div class="product_name"><div><a href="product.html">Viettel</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1546,7 +1547,7 @@
 												<div class="product_price">590.000đ</div>
 												<div class="product_name"><div><a href="product.html">Spotify 12 Month</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1567,7 +1568,7 @@
 												<div class="product_price">210.000đ</div>
 												<div class="product_name"><div><a href="product.html">SOHA</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1589,7 +1590,7 @@
 												<div class="product_name"><div><a href="product.html">Vietnammobile</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
-														
+
 													</div>
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
@@ -1611,7 +1612,7 @@
 												<div class="product_price">80.000đ</div>
 												<div class="product_name"><div><a href="product.html">Mobifone</a></div></div>
 												<div class="product_extras">
-													
+
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -1650,7 +1651,7 @@
 						<div class="popular_categories_link"><a href="#">full catalog</a></div>
 					</div>
 				</div>
-				
+
 				<!-- Popular Categories Slider -->
 
 				<div class="col-lg-9">
@@ -1727,7 +1728,7 @@
 							<!-- star   <div class="rating_r rating_r_4 banner_2_rating"><i class="fas fa-star"></i></i><i></i><i></i><i></i><i></i></div> -->
 										<div class="button banner_2_button"><a href="#">Explore</a></div>
 									</div>
-									
+
 								</div>
 								<div class="col-lg-8 col-md-6 fill_height">
 									<div class="banner_2_image_container">
@@ -1735,7 +1736,7 @@
 									</div>
 								</div>
 							</div>
-						</div>			
+						</div>
 					</div>
 				</div>
 
@@ -1752,7 +1753,7 @@
 							<!-- star   <div class="rating_r rating_r_4 banner_2_rating"><i class="fas fa-star"></i></i><i></i><i></i><i></i><i></i></div> -->
 										<div class="button banner_2_button"><a href="#">Explore</a></div>
 									</div>
-									
+
 								</div>
 								<div class="col-lg-8 col-md-6 fill_height">
 									<div class="banner_2_image_container">
@@ -1760,7 +1761,7 @@
 									</div>
 								</div>
 							</div>
-						</div>			
+						</div>
 					</div>
 				</div>
 
@@ -1777,7 +1778,7 @@
 							<!-- star   <div class="rating_r rating_r_4 banner_2_rating"><i class="fas fa-star"></i></i><i></i><i></i><i></i><i></i></div> -->
 										<div class="button banner_2_button"><a href="#">Explore</a></div>
 									</div>
-									
+
 								</div>
 								<div class="col-lg-8 col-md-6 fill_height">
 									<div class="banner_2_image_container">
@@ -1785,7 +1786,7 @@
 									</div>
 								</div>
 							</div>
-						</div>			
+						</div>
 					</div>
 				</div>
 
@@ -1810,11 +1811,11 @@
 					</div>
 
 					<div class="viewed_slider_container">
-						
+
 						<!-- Recently Viewed Slider -->
 
 						<div class="owl-carousel owl-theme viewed_slider">
-							
+
 							<!-- Recently Viewed Item -->
 							<div class="owl-item">
 								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
@@ -1918,11 +1919,11 @@
 			<div class="row">
 				<div class="col">
 					<div class="brands_slider_container">
-						
+
 						<!-- Brands Slider -->
 
 						<div class="owl-carousel owl-theme brands_slider">
-							
+
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/steam1.png" height="45" width="auto" style="vertical-align:middle" alt=""></div></div>
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/vina2.png" height="180" width="auto" style="vertical-align:middle" alt=""></div></div>
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/viettel2.png" height="120" width="auto" style="vertical-align:middle" alt=""></div></div>
@@ -1933,7 +1934,7 @@
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/gate2.png" height="40" width="auto" style="vertical-align:middle" alt=""></div></div>
 
 						</div>
-						
+
 						<!-- Brands Slider Navigation -->
 						<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
 						<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
@@ -2008,7 +2009,7 @@
 							<li><a href="#">Smartphones & Tablets</a></li>
 							<li><a href="#">Shopping</a></li>
 						</ul>
-						
+
 					</div>
 				</div>
 
@@ -2049,7 +2050,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					
+
 				<!--	<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
 						<div class="copyright_content">
 Copyright &copy;<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://templatespoint.net/" target="_blank">TemplatesPoint</a>
