@@ -63,35 +63,24 @@ public class ResendMail extends HttpServlet {
         Account account = (Account) session.getAttribute("authcode");
 
         if (account != null) {
-            EmailService sm = new EmailService();
-            String code = sm.getRandom();
-            account.setCode(code);
+
             Thread emailThread = new Thread(() -> {
-                boolean test = sm.sendEmail(account);
                 synchronized (session) {
+                    EmailService sm = new EmailService();
+                    String code = sm.getRandom();
+                    account.setCode(code);
+
+                    boolean test = sm.sendEmail(account);
                     if (test) {
                         session.setAttribute("authcode", account);
-                        try {
-                            response.sendRedirect("emailverification.jsp");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     } else {
-                        try {
-                            request.setAttribute("error", "Failed to resend verification email");
-                            request.getRequestDispatcher("register.jsp").forward(request, response);
-                        } catch (ServletException | IOException e) {
-                            e.printStackTrace();
-                        }
+                        System.err.println("Failed to resend verification email");
                     }
                 }
             });
+
             emailThread.start();
-            try {
-                emailThread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            response.sendRedirect("emailverification.jsp");
         } else {
             response.sendRedirect("register.jsp");
         }
