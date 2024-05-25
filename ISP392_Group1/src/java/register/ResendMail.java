@@ -64,6 +64,8 @@ public class ResendMail extends HttpServlet {
 
         if (account != null) {
             EmailService sm = new EmailService();
+            String code = sm.getRandom();
+            account.setCode(code);
             Thread emailThread = new Thread(() -> {
                 boolean test = sm.sendEmail(account);
                 synchronized (session) {
