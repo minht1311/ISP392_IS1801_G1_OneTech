@@ -144,10 +144,13 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("user", username);
         DAO u = new DAO();
-
+        Account acc = u.checkAuthen(username, EncryptionPassword.toSHA1(password));
+        session.setAttribute("acc", acc);
+        
+        System.out.println(acc.username);
         boolean check = u.checkUser1(username, EncryptionPassword.toSHA1(password));
 
-        if (check) {
+        if (acc != null) {
             if (sessionCaptcha != null && sessionCaptcha.equals(captcha)) {
                 // Replace this with your actual authentication logic
                 request.setAttribute("username", username);

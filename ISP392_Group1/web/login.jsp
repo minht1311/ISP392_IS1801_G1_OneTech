@@ -117,11 +117,11 @@
                                 </div>
                                 <form id="login-form" action="LoginServlet" method="post" class="signin-form">
                                     <div class="form-group mt-3">
-                                        <input type="text" class="form-control" name="username" required value="${username}">
+                                        <input type="text" class="form-control" name="username" required ">
                                         <label class="form-control-placeholder" for="username">Username or Email</label>
                                     </div>
                                     <div class="form-group">
-                                        <input id="password-field" type="password" name="password" class="form-control" required value="${password}">
+                                        <input id="password-field" type="password" name="password" class="form-control" required ">
                                         <label class="form-control-placeholder" for="password">Password</label>
                                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
@@ -136,7 +136,7 @@
                                     </div>
                                     <input type="hidden" id="captcha_id" name="captcha_id" value="<%= captchaId %>">
                                     <c:if test="${not empty errorMessage}">
-                                        <div class="error-message">${errorMessage}</div>
+                                        <div class="error-message" style="color: red"> ${errorMessage}</div>
                                     </c:if>
 
                                     <div class="form-group">

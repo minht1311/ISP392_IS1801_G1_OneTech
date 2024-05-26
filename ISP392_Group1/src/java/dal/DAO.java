@@ -155,6 +155,7 @@ public class DAO extends DBContext {
         }
         return false;
     }
+
     public boolean checkUserAndEmail(String username, String email) {
         try {
             String strSQL = "select * from account where username = ? and password = email";
@@ -247,7 +248,7 @@ public class DAO extends DBContext {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 String userEmail = rs.getString("email");
-                account = new Account(username, userEmail, password);
+                account = new Account(username, email, password);
             }
         } catch (SQLException e) {
             System.out.println("getUserByEmail: " + e.getMessage());
@@ -268,6 +269,25 @@ public class DAO extends DBContext {
             }
         }
         return account;
+    }
+
+    //Hung
+    public Account checkAuthen(String username, String password) {
+        String sql = "SELECT * FROM account WHERE username=? AND password=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+            
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                // Trả về một đối tượng account với username, password
+                return new Account(username, password);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
 }
