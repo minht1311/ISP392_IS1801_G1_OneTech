@@ -282,12 +282,27 @@ public class DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 // Trả về một đối tượng account với username, password
-                return new Account(username, password);
+                return new Account(username,password);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
     }
-
+   
+    public boolean isAdmin(String username) {
+    String sql = "SELECT isAdmin FROM Account WHERE username=?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, username);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            return rs.getBoolean("isAdmin");
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return false;
+}
+    
 }

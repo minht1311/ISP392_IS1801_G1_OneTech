@@ -155,7 +155,12 @@ public class LoginServlet extends HttpServlet {
                 // Replace this with your actual authentication logic
                 request.setAttribute("username", username);
                 request.setAttribute("auth_method", "userAndPassWord");
-                request.getRequestDispatcher("home.jsp").forward(request, response);
+                boolean isAdmin = u.isAdmin(username);  // Check if the user is an admin
+                if (isAdmin) {
+                    response.sendRedirect("admindashboard.jsp");  // Redirect to admin home page
+                } else {
+                    response.sendRedirect("home.jsp");  // Redirect to user home page
+                }
             } else {
                 request.setAttribute("errorMessage", "Invalid CAPTCHA");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
