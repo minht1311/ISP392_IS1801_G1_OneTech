@@ -56,13 +56,50 @@
                                         </div>
                                     </div>
                                 </form>
-                                <p class="text-center">No CODE sent? <a href="ResendMail">Resend</a></p>
+                                <p class="text-center">No CODE sent? <a href="#" id="resendLink">Resend</a></p>
+                                <p id="timer" class="text-center" style="display: none;">
+                                    Please wait <span id="countdown">60</span> seconds to resend.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <script>
+            document.getElementById('resendLink').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                // Disable the resend link
+                this.style.pointerEvents = 'none';
+                document.getElementById('timer').style.display = 'block';
+
+                // Start the countdown
+                let countdown = 60;
+                const countdownElement = document.getElementById('countdown');
+                const interval = setInterval(() => {
+                    countdown--;
+                    countdownElement.textContent = countdown;
+                    if (countdown <= 0) {
+                        clearInterval(interval);
+                        document.getElementById('resendLink').style.pointerEvents = 'auto';
+                        document.getElementById('timer').style.display = 'none';
+                    }
+                }, 1000);
+
+                // Perform the resend action
+                fetch('ResendMail')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.text();
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with the fetch operation:', error);
+                        });
+            });
+        </script>
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.js"></script>
         <script src="js/bootstrap.min.js"></script>
