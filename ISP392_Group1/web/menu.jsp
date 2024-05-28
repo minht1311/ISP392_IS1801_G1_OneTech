@@ -63,7 +63,7 @@
                                             <li><a href="#">Wishlist</a></li>
                                             <li><a href="#">Cart</a></li>
                                             <li><a href="#">Preferences</a></li>
-                                            <li><a href="logout.jsp">Logout</a></li>
+                                            <li><a href="logout">Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul> 

@@ -1155,12 +1155,12 @@
                         <li>
                             <div class="title">Earnings</div>
                             <div class="stats">$22,500</div>
-                            <div class="sparkline" id="infobar-earningsstats" style="100%"></div>
+                            <div class="sparkline" id="infobar-earningsstats" style=""></div>
                         </li>
                         <li>
                             <div class="title">Orders</div>
                             <div class="stats">4,750</div>
-                            <div class="sparkline" id="infobar-orderstats" style="100%"></div>
+                            <div class="sparkline" id="infobar-orderstats" style=""></div>
                         </li>
                     </ul>
                     <a href="#" class="more">More Sparklines</a>

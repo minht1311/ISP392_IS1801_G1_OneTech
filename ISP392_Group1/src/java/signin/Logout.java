@@ -18,10 +18,12 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/logout")
 public class Logout extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.removeAttribute("acc");
-        response.sendRedirect("login.jsp"); 
+        session.setAttribute("acc", null);
+        session.setAttribute("user", null);
+        response.sendRedirect("home.jsp");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
