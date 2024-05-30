@@ -278,31 +278,60 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setString(2, password);
-            
+
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 // Trả về một đối tượng account với username, password
-                return new Account(username,password);
+                return new Account(username, password);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
     }
-   
+
     public boolean isAdmin(String username) {
-    String sql = "SELECT isAdmin FROM Account WHERE username=?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, username);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            return rs.getBoolean("isAdmin");
+        String sql = "SELECT isAdmin FROM Account WHERE username=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean("isAdmin");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        System.out.println(e);
+        return false;
     }
-    return false;
-}
-    
+
+    public boolean updatePassword(String email, String newPassword) {
+        String sql = "update [dbo].[Account] set password = ? where email=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newPassword);
+            st.setString(2, email);
+            int rowsUpdated = st.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean checkEmail(String email) {
+        String sql = "select * from [dbo].[Account] where email=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
 }

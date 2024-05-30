@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.account;
+import model.Account;
 import register.EmailService;
 
 @WebServlet(name = "ForgotPassword", urlPatterns = {"/ForgotPassword"})
@@ -75,7 +75,7 @@ public class ForgotPassword extends HttpServlet {
 
         DAO d = new DAO();
 
-        boolean checkMail = d.checkUserEmail(email);
+        boolean checkMail = d.checkEmail(email);
         
         if (checkMail) {
             // send mail
@@ -83,7 +83,7 @@ public class ForgotPassword extends HttpServlet {
 
         String code = sm.getRandom();
 
-        account account = new account();
+        Account account = new Account();
         account.setEmail(email);
         account.setCode(code);
         HttpSession session = request.getSession();
