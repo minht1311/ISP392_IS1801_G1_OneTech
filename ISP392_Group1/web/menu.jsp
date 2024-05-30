@@ -59,14 +59,32 @@
                                     <div class="user_icon"><img src="images/user.svg" alt=""></div>
                                     <li>
                                         <a href="#">Welcome, <%= user %><i class="fas fa-chevron-down"></i></a>
-                                        <ul> 
+                                        <ul>
                                             <li><a href="#">Wishlist</a></li>
                                             <li><a href="#">Cart</a></li>
-                                            <li><a href="#">Preferences</a></li>
-                                            <li><a href="logout">Logout</a></li>
+                                            <li><a href="#">Change Password</a></li>
+                                            <li><a href="#" id="logoutLink">Logout</a></li>
                                         </ul>
                                     </li>
-                                </ul> 
+                                </ul>
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                                <script>
+                                    document.getElementById('logoutLink').addEventListener('click', function (event) {
+                                        event.preventDefault();
+                                        Swal.fire({
+                                            title: "Log out of your account?",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#3085d6",
+                                            cancelButtonColor: "#d33",
+                                            confirmButtonText: "Log out!"
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = "logout"; // redirect to logout URL
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <%
                                 } else {
                                 %>

@@ -85,7 +85,7 @@
             window.addEventListener("pageshow", function (event) {
                 if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
                     // The page is loaded from the back/forward cache
-                    document.getElementById("login-form").reset();
+                    document.getElementById("captcha-field").value = "";
                     generateNewCaptcha();
                 }
             });
@@ -117,11 +117,11 @@
                                 </div>
                                 <form id="login-form" action="LoginServlet" method="post" class="signin-form">
                                     <div class="form-group mt-3">
-                                        <input type="text" class="form-control" name="username" required ">
+                                        <input type="text" class="form-control" name="username" value="${param.username}" required>
                                         <label class="form-control-placeholder" for="username">Username or Email</label>
                                     </div>
                                     <div class="form-group">
-                                        <input id="password-field" type="password" name="password" class="form-control" required ">
+                                        <input id="password-field" type="password" name="password" class="form-control" value="${param.password}" required>
                                         <label class="form-control-placeholder" for="password">Password</label>
                                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
@@ -136,7 +136,7 @@
                                     </div>
                                     <input type="hidden" id="captcha_id" name="captcha_id" value="<%= captchaId %>">
                                     <c:if test="${not empty errorMessage}">
-                                        <div class="error-message" style="color: red"> ${errorMessage}</div>
+                                        <div class="error-message" style="color: red">${errorMessage}</div>
                                     </c:if>
 
                                     <div class="form-group">
@@ -154,6 +154,7 @@
                                         </div>
                                     </div>
                                 </form>
+
                                 <p class="text-center">Not a member? <a href="register.jsp">Sign Up</a></p>
                                 <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:9999/ISP392_Group1/LoginServlet&response_type=code&client_id=957942724914-d7o66vc94gln7kiiifn5j5k1cn6pjvet.apps.googleusercontent.com&approval_prompt=force" class="google-btn">
                                     <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width="20" height="20">

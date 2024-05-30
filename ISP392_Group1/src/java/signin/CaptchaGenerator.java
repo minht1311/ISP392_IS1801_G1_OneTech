@@ -93,7 +93,8 @@ public class CaptchaGenerator extends HttpServlet {
     }
 
     public String generateCaptchaString() {
-        char[] data = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+       // char[] data = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+        char[] data = "0123456789".toCharArray();
         Random random = new Random();
         StringBuilder captchaString = new StringBuilder();
         for (int i = 0; i < 5; i++) {

@@ -146,8 +146,7 @@ public class LoginServlet extends HttpServlet {
         DAO u = new DAO();
         Account acc = u.checkAuthen(username, EncryptionPassword.toSHA1(password));
         session.setAttribute("acc", acc);
-        
-        System.out.println(acc.username);
+
         boolean check = u.checkUser1(username, EncryptionPassword.toSHA1(password));
 
         if (acc != null) {
@@ -155,7 +154,7 @@ public class LoginServlet extends HttpServlet {
                 // Replace this with your actual authentication logic
                 request.setAttribute("username", username);
                 request.setAttribute("auth_method", "userAndPassWord");
-                boolean isAdmin = u.isAdmin(username);  // Check if the user is an admin
+                boolean isAdmin = acc.getUsername().equalsIgnoreCase("admin");  // Check if the user is an admin
                 if (isAdmin) {
                     response.sendRedirect("admindashboard.jsp");  // Redirect to admin home page
                 } else {
