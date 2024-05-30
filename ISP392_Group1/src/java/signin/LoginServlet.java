@@ -156,8 +156,16 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("auth_method", "userAndPassWord");
                 boolean isAdmin = acc.getUsername().equalsIgnoreCase("admin");  // Check if the user is an admin
                 if (isAdmin) {
+                    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+                    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+                    response.setDateHeader("Expires", 0); // Proxies
+
                     response.sendRedirect("admindashboard.jsp");  // Redirect to admin home page
                 } else {
+                    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+                    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+                    response.setDateHeader("Expires", 0); // Proxies
+
                     response.sendRedirect("home.jsp");  // Redirect to user home page
                 }
             } else {

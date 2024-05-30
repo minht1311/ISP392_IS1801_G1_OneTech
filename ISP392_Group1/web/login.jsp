@@ -2,17 +2,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.UUID" %>
 <%@ page import="java.util.Random" %>
-
+<%
+response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+response.setDateHeader("Expires", 0); // Proxies.
+%>
 
 <%
-    // Invalidate the current session to ensure a new session is created
-    session.invalidate();
+// Invalidate the current session to ensure a new session is created
+session.invalidate();
+// Create a new session for the new request
+session = request.getSession(true);
 
-    // Create a new session for the new request
-    session = request.getSession(true);
-
-    String captchaId = UUID.randomUUID().toString();
-    session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaString());
+String captchaId = UUID.randomUUID().toString();
+session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaString());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +25,9 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/style.css">
+        <script>
+            window.history.forward();
+        </script>
         <style>
             .captcha-container {
                 display: flex;
@@ -69,26 +75,27 @@
         </style>
         <script type="text/javascript">
             function generateNewCaptcha() {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "CaptchaGenerator?new=true", true);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        document.getElementById("captchaImage").src = "CaptchaGenerator?captchaId=" + response.captchaId;
-                        document.getElementById("captcha_id").value = response.captchaId;
-                    }
-                };
-                xhr.send();
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "CaptchaGenerator?new=true", true);
+            xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            document.getElementById("captchaImage").src = "CaptchaGenerator?captchaId=" + response.captchaId;
+            document.getElementById("captcha_id").value = response.captchaId;
+            }
+            };
+            xhr.send();
             }
 
-            // Detect when the page is loaded via the browser's back button
-            window.addEventListener("pageshow", function (event) {
-                if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-                    // The page is loaded from the back/forward cache
-                    document.getElementById("captcha-field").value = "";
-                    generateNewCaptcha();
-                }
-            });
+            ```
+                // Detect when the page is loaded via the browser's back button
+                window.addEventListener("pageshow", function (event) {
+                    if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+                        // The page is loaded from the back/forward cache
+                        document.getElementById("captcha-field").value = "";
+                        generateNewCaptcha();
+                    }
+                });
         </script>
     </head>
     <body>
@@ -111,7 +118,7 @@
                                     <div class="w-100">
                                         <p class="social-media d-flex justify-content-end">
                                             <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
-                                            <a href="https://x.com/two_toner/" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
+                                            <a href="<https://x.com/two_toner/>" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
                                         </p>
                                     </div>
                                 </div>
@@ -156,8 +163,8 @@
                                 </form>
 
                                 <p class="text-center">Not a member? <a href="register.jsp">Sign Up</a></p>
-                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:9999/ISP392_Group1/LoginServlet&response_type=code&client_id=957942724914-d7o66vc94gln7kiiifn5j5k1cn6pjvet.apps.googleusercontent.com&approval_prompt=force" class="google-btn">
-                                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width="20" height="20">
+                                <a href="<https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:9999/ISP392_Group1/LoginServlet&response_type=code&client_id=957942724914-d7o66vc94gln7kiiifn5j5k1cn6pjvet.apps.googleusercontent.com&approval_prompt=force>" class="google-btn">
+                                    <img src="<https://developers.google.com/identity/images/g-logo.png>" alt="Google logo" width="20" height="20">
                                     Login With Google
                                 </a>
                             </div>
