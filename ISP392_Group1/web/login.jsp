@@ -163,8 +163,8 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
                                 </form>
 
                                 <p class="text-center">Not a member? <a href="register.jsp">Sign Up</a></p>
-                                <a href="<https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:9999/ISP392_Group1/LoginServlet&response_type=code&client_id=957942724914-d7o66vc94gln7kiiifn5j5k1cn6pjvet.apps.googleusercontent.com&approval_prompt=force>" class="google-btn">
-                                    <img src="<https://developers.google.com/identity/images/g-logo.png>" alt="Google logo" width="20" height="20">
+                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:9999/ISP392_Group1/LoginServlet&response_type=code&client_id=957942724914-d7o66vc94gln7kiiifn5j5k1cn6pjvet.apps.googleusercontent.com&pproval_prompt=force" class="google-btn">
+                                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width="20" height="20">
                                     Login With Google
                                 </a>
                             </div>
