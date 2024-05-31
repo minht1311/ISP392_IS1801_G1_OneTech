@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Date"%> 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -45,7 +46,7 @@
                                     </div>
 
                                 </div>
-                                <form action="verify" method="post" class="signin-form">
+                                <form action="verify" method="post" id="verificationForm" class="signin-form">
                                     <div class="form-group mt-3">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="authcode" required>
@@ -55,7 +56,12 @@
                                             <button type="submit" class="form-control btn btn-primary rounded submit px-3">Verify</button>
                                         </div>
                                     </div>
+                                    <input type="hidden" id="attempts" name="attempts" value="0">
+                                    <input type="hidden" id="codeSentTime" name="codeSentTime" value="<%= new Date().getTime() %>">
                                 </form>
+                                <p id="error" class="text-center" style="color: red;">
+                                    <%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %>
+                                </p>
                                 <p class="text-center">No CODE sent? <a href="#" id="resendLink">Resend</a></p>
                                 <p id="timer" class="text-center" style="display: none;">
                                     Please wait <span id="countdown">60</span> seconds to resend.

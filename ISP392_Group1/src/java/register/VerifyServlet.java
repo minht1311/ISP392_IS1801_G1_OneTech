@@ -76,10 +76,32 @@ public class VerifyServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("authcode");
-        DAO d = new DAO();
 
+        if (a == null) {
+            // If the session does not have the authcode, redirect to register page
+            response.sendRedirect("register.jsp");
+            return;
+        }
+
+        Integer attempts = (Integer) session.getAttribute("attempts");
+        if (attempts == null) {
+            attempts = 0;
+        }
+
+        DAO d = new DAO();
         String code = request.getParameter("authcode");
-        // check code
+        long codeSentTime = Long.parseLong(request.getParameter("codeSentTime"));
+        long currentTime = System.currentTimeMillis();
+        long expirationTime = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
+
+        // Check if the code has expired
+        if (currentTime - codeSentTime > expirationTime) {
+            session.invalidate();
+            request.setAttribute("error", "The verification code has expired. Please register again.");
+            request.getRequestDispatcher("emailverification.jsp").forward(request, response);
+            return;
+        }
+        // Check code
         if (code.equalsIgnoreCase(a.getCode())) {
             if (d.checkUserEmail(a.email)) {
                 d.update(a);
@@ -89,10 +111,16 @@ public class VerifyServlet extends HttpServlet {
             request.setAttribute("username", a.username);
             request.setAttribute("error", "Please re-enter password to sign in");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-//            response.sendRedirect("login.jsp");
         } else {
-            request.setAttribute("error", "code is incorrect!!!");
-            request.getRequestDispatcher("verify.jsp").forward(request, response);
+            attempts++;
+            if (attempts > 5) {
+                session.invalidate(); // Invalidate the session to clear all attributes
+                response.sendRedirect("register.jsp");
+            } else {
+                session.setAttribute("attempts", attempts);
+                request.setAttribute("error", "Code is incorrect!!! Attempts remaining: " + (5 - attempts));
+                request.getRequestDispatcher("emailverification.jsp").forward(request, response);
+            }
         }
     }
 

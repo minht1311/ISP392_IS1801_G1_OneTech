@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.account;
+import model.Account;
 import register.EmailService;
 
 @WebServlet(name = "ResendMailFP", urlPatterns = {"/ResendMailFP"})
@@ -57,7 +57,7 @@ public class ResendMailFP extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        account account = (account) session.getAttribute("authcode");
+        Account account = (Account) session.getAttribute("authcode");
 
         if (account != null) {
 

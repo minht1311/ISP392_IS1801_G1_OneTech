@@ -12,7 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.account;
+import model.Account;
+
 
 @WebServlet(name = "VerifyCodeForgot", urlPatterns = {"/VerifyCodeForgot"})
 public class VerifyCodeForgot extends HttpServlet {
@@ -71,7 +72,7 @@ public class VerifyCodeForgot extends HttpServlet {
             throws ServletException, IOException {
         String code = request.getParameter("authcode");
         HttpSession session = request.getSession();
-        account a = (account) session.getAttribute("authcode");
+        Account a = (Account) session.getAttribute("authcode");
 
         if (code.equalsIgnoreCase(a.getCode())) {
             // Code verified successfully
