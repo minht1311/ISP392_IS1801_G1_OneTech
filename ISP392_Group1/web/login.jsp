@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.UUID" %>
 <%@ page import="java.util.Random" %>
 <%
@@ -75,27 +75,26 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
         </style>
         <script type="text/javascript">
             function generateNewCaptcha() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "CaptchaGenerator?new=true", true);
-            xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-            var response = JSON.parse(xhr.responseText);
-            document.getElementById("captchaImage").src = "CaptchaGenerator?captchaId=" + response.captchaId;
-            document.getElementById("captcha_id").value = response.captchaId;
-            }
-            };
-            xhr.send();
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "CaptchaGenerator?new=true", true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        document.getElementById("captchaImage").src = "CaptchaGenerator?captchaId=" + response.captchaId;
+                        document.getElementById("captcha_id").value = response.captchaId;
+                    }
+                };
+                xhr.send();
             }
 
-            ```
-                // Detect when the page is loaded via the browser's back button
-                window.addEventListener("pageshow", function (event) {
-                    if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-                        // The page is loaded from the back/forward cache
-                        document.getElementById("captcha-field").value = "";
-                        generateNewCaptcha();
-                    }
-                });
+            // Detect when the page is loaded via the browser's back button
+            window.addEventListener("pageshow", function (event) {
+                if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+                    // The page is loaded from the back/forward cache
+                    document.getElementById("captcha-field").value = "";
+                    generateNewCaptcha();
+                }
+            });
         </script>
     </head>
     <body>
@@ -118,7 +117,7 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
                                     <div class="w-100">
                                         <p class="social-media d-flex justify-content-end">
                                             <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
-                                            <a href="<https://x.com/two_toner/>" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
+                                            <a href="https://x.com/two_toner/" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
                                         </p>
                                     </div>
                                 </div>
@@ -133,7 +132,7 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
                                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
                                     <div class="captcha-container">
-                                        <img id="captchaImage" src="CaptchaGenerator?captchaId=<%= captchaId %>" alt="CAPTCHA Image" />
+                                        <img id="captchaImage" src="CaptchaGenerator?captchaId=<%=captchaId%>" alt="CAPTCHA Image" />
                                         <img class="captcha-refresh" src="captchaRefresh.png" alt="Refresh CAPTCHA" onclick="generateNewCaptcha()" />
                                     </div>
                                     <br>
@@ -141,7 +140,7 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
                                         <input id="captcha-field" name="captcha" type="text" class="form-control" required>
                                         <label class="form-control-placeholder" for="captcha-field">Captcha</label>
                                     </div>
-                                    <input type="hidden" id="captcha_id" name="captcha_id" value="<%= captchaId %>">
+                                    <input type="hidden" id="captcha_id" name="captcha_id" value="<%=captchaId%>">
                                     <c:if test="${not empty errorMessage}">
                                         <div class="error-message" style="color: red">${errorMessage}</div>
                                     </c:if>
@@ -161,9 +160,8 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
                                         </div>
                                     </div>
                                 </form>
-
                                 <p class="text-center">Not a member? <a href="register.jsp">Sign Up</a></p>
-                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:9999/ISP392_Group1/LoginServlet&response_type=code&client_id=957942724914-d7o66vc94gln7kiiifn5j5k1cn6pjvet.apps.googleusercontent.com&pproval_prompt=force" class="google-btn">
+                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://your-domain.com/LoginServlet&response_type=code&client_id=your-client-id.apps.googleusercontent.com&approval_prompt=force" class="google-btn">
                                     <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width="20" height="20">
                                     Login With Google
                                 </a>
