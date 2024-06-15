@@ -13,10 +13,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
         <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-        <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-        <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-        <link rel="stylesheet" type="text/css" href="plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="styles/shop_styles.css">
         <link rel="stylesheet" type="text/css" href="styles/shop_responsive.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -25,7 +21,7 @@
             .shop_sidebar {
                 text-align: left;
                 width: 186px;
-                background: #ddd;
+                background: #ffffff;
             }
 
             .sidebar_section {
@@ -36,7 +32,33 @@
             .sidebar_section .sidebar_title {
                 font-weight: bold;
                 font-size: 30px;
+                color: #85C9DE;
                 margin-bottom: 10px;
+
+            }
+
+            .sidebar_section .sidebar_title1 {
+                font-weight: bold;
+                font-size: 24px;
+                color: #000;
+                display: block;
+                padding: 6px 0;
+                border-bottom: 1px dashed #ddd;
+                margin-bottom: 10px;
+            }
+
+            /* Add hover state */
+            .sidebar_title1:hover {
+                background-color: #85C9DE;
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+
+            /* Add active state */
+            .sidebar_title1.active {
+                background-color: #85C9DE;
+                color: #FFFFFF;
+                text-decoration: none;
             }
 
             .sidebar_section .sidebar_subtitle {
@@ -98,14 +120,13 @@
                 opacity: 0.5;
             }
 
-            .page_nav li.active a {
+            .page_nav a.active {
                 font-weight: bold;
                 color: white;
                 background-color: #007bff;
                 border-radius: 4px;
                 padding: 0.2em 0.5em;
             }
-
 
             .product-card {
                 margin-bottom: 15px;
@@ -165,6 +186,30 @@
             .cart_icon a:hover {
                 color: #0e8ce4;
             }
+
+            .page-link {
+                padding: 8px 12px; /* Điều chỉnh padding để tạo khoảng cách xung quanh nội dung */
+                margin: 0 5px; /* Khoảng cách giữa các nút phân trang */
+                color: #007bff; /* Màu chữ mặc định */
+                text-decoration: none; /* Bỏ gạch chân mặc định */
+                border: 1px solid #007bff; /* Viền xung quanh */
+                border-radius: 5px; /* Bo góc */
+            }
+
+            .sidebar_title2:hover {
+                background-color: #85C9DE;
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+
+            /* Add active state */
+            .sidebar_title2.active {
+                background-color: #85C9DE;
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+
+
 
         </style>
 
@@ -274,7 +319,7 @@
                                 <div class="main_nav_content d-flex flex-row">
                                     <div class="main_nav_menu m2-auto">
                                         <ul class="standard_dropdown main_nav_dropdown">
-                                            <li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="home.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
                                             <li class="hassubs">
                                                 <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
                                                 <ul>
@@ -310,7 +355,7 @@
                                             <li class="hassubs">
                                                 <a href="#">Pages<i class="fas fa-chevron-down"></i></a>
                                                 <ul>
-                                                    <li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
+                                                    <li><a href="shop.jsp">Shop<i class="fas fa-chevron-down"></i></a></li>
                                                     <li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
                                                     <li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
                                                     <li><a href="blog_single.html">Blog Post<i class="fas fa-chevron-down"></i></a></li>
@@ -345,6 +390,9 @@
             </div>
 
             <!-- Shop -->
+            <c:set var="currentCid" value="${param.cid}" />
+            <c:set var="currentSort" value="${param.sort_by}" />
+            <c:set var="page" value="${param.index != null ? param.index : 1}" />
 
             <div class="shop">
                 <div class="container">
@@ -353,284 +401,211 @@
                             <!-- Shop Sidebar -->
                             <div class="shop_sidebar">
                                 <div class="sidebar_section">
-                                    <div class="sidebar_title">Brand</div>
-                                    <div class="sidebar_subtitle" id="dropdown_trigger">Card</div>
-                                    <ul class="sidebar_categories" id="dropdown_menu">
+                                    <div class="sidebar_title">BRAND</div>
+                                    <div class="sidebar_title"><a class="sidebar_title1 ${empty currentCid ? 'active' : ''}" href="shop.jsp">ALL BRAND</a></div>
+                                    <div class="sidebar_subtitle" id="dropdown_trigger">CARD</div>
+                                    <ul class="sidebar_categories">
                                         <c:forEach items="${requestScope.listC}" var="category">
-                                            <li><a class="nav-link ${tag == category.id ? "active":""}" href="Category2Servlet?cid=${category.id}">${category.name}</a></li>
+                                            <li><a class="nav-link ${currentCid == category.id ? 'active' : ''}" href="shop?cid=${category.id}&sort_by=${currentSort}">${category.name}</a></li>
                                             </c:forEach>
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-lg-9">
                             <!-- Shop Content -->
                             <div class="shop_content">
                                 <div class="shop_bar clearfix">
                                     <div class="shop_product_count"><span>${productCount}</span> products found</div>
-                                    <div class="shop_sorting">
+                                    <form class="shop_sorting" method="get" action="shop">
+                                        <input type="hidden" name="cid" value="${currentCid}">
                                         <span>Sort by:</span>
-                                        <ul>
-                                            <li>
-                                                <span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
-                                                <ul>
-                                                    <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
-                                                    <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-                                                    <li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>price</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                        <select name="sort_by">
+                                            <option value="ASC" ${currentSort == 'ASC' ? 'selected' : ''}>Price Ascending</option>
+                                            <option value="DESC" ${currentSort == 'DESC' ? 'selected' : ''}>Price Descending</option>
+                                            <option value="Name" ${currentSort == 'Name' ? 'selected' : ''}>Card Name</option>
+                                        </select>
+                                        <button type="submit">Sort</button>
+                                    </form>
                                 </div>
-
                                 <div class="col-md-12">
                                     <div class="row" id="product-container">
                                         <c:forEach items="${listP}" var="p">
                                             <!-- Product Item -->
-                                            <div class="product col-md-3">
-                                                <div class="product-card">
-                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                        <img src="${p.image}" alt="">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <div class="product_price">
-                                                            <h3>${p.getFormattedPrice()}  </h3>
+                                            <a href="detail?pid=${p.id}">
+                                                <div class="product col-md-3">
+                                                    <div class="product-card">
+                                                        <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                            <img src="${p.image}" alt="">
                                                         </div>
-                                                        <div class="product_name">
-                                                            <div class="name_cart_container d-flex justify-content-between align-items-center">
-                                                                <a href="detail?pid=${p.id}">${p.name}</a>
-                                                                <p class="cart_icon">
-                                                                    <a href="#">
-                                                                        <i class="fas fa-shopping-cart"></i>
-                                                                    </a>
-                                                                </p>
+                                                        <div class="product-info">
+                                                            <div class="product_price">
+                                                                <h4>${p.getFormattedPrice()} VNĐ</h4>
+                                                            </div>
+                                                            <div class="product_name">
+                                                                <div class="name_cart_container d-flex justify-content-between align-items-center">
+                                                                    <h4>Add To Cart</h4>
+                                                                    <p class="cart_icon">
+                                                                        <a href="#">
+                                                                            <i class="fas fa-shopping-cart"></i>
+                                                                        </a>
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </c:forEach>
                                     </div>
                                 </div>
-
-                                <!-- Shop Page Navigation -->
+                                <!-- Pagination -->
                                 <div class="shop_page_nav d-flex flex-row">
                                     <div id="page_prev" class="page_prev d-flex flex-column align-items-center justify-content-center">
-                                        <i class="fas fa-chevron-left"></i>
+                                        <c:choose>
+                                            <c:when test="${page > 1}">
+                                                <a href="shop?index=${page-1}&cid=${currentCid}&sort_by=${currentSort}">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="#" class="disabled">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                     <ul class="page_nav d-flex flex-row">
                                         <c:forEach begin="1" end="${endPage}" var="i">
-                                            <li><a href="javascript:void(0);" onclick="loadPage(${i})">${i}</a></li>
+                                            <li class="page-item"> <a class="sidebar_title2 ${page == i ? "active":""}" href="shop?index=${i}&cid=${currentCid}&sort_by=${currentSort}">${i}</a></li>
                                             </c:forEach>
                                     </ul>
                                     <div id="page_next" class="page_next d-flex flex-column align-items-center justify-content-center">
-                                        <i class="fas fa-chevron-right"></i>
+                                        <c:choose>
+                                            <c:when test="${page < endPage}">
+                                                <a href="shop?index=${page+1}&cid=${currentCid}&sort_by=${currentSort}">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="#" class="disabled">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
 
 
 
 
 
 
-            <!-- Footer -->
 
-            <footer class="footer">
-                <div class="container">
-                    <div class="row">
+                <!-- Footer -->
 
-                        <div class="col-lg-3 footer_col">
-                            <div class="footer_column footer_contact">
-                                <div class="logo_container">
-                                    <div class="logo"><a href="#">OneTech</a></div>
+                <footer class="footer">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-lg-3 footer_col">
+                                <div class="footer_column footer_contact">
+                                    <div class="logo_container">
+                                        <div class="logo"><a href="#">OneTech</a></div>
+                                    </div>
+                                    <div class="footer_title">Got Question? Call Us 24/7</div>
+                                    <div class="footer_phone">+38 068 005 3570</div>
+                                    <div class="footer_contact_text">
+                                        <p>17 Princess Road, London</p>
+                                        <p>Grester London NW18JR, UK</p>
+                                    </div>
+                                    <div class="footer_social">
+                                        <ul>
+                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-google"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="footer_title">Got Question? Call Us 24/7</div>
-                                <div class="footer_phone">+38 068 005 3570</div>
-                                <div class="footer_contact_text">
-                                    <p>17 Princess Road, London</p>
-                                    <p>Grester London NW18JR, UK</p>
-                                </div>
-                                <div class="footer_social">
-                                    <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-google"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                            </div>
+
+                            <div class="col-lg-2 offset-lg-2">
+                                <div class="footer_column">
+                                    <div class="footer_title">Find it Fast</div>
+                                    <ul class="footer_list">
+                                        <li><a href="#">Computers & Laptops</a></li>
+                                        <li><a href="#">Cameras & Photos</a></li>
+                                        <li><a href="#">Hardware</a></li>
+                                        <li><a href="#">Smartphones & Tablets</a></li>
+                                        <li><a href="#">TV & Audio</a></li>
+                                    </ul>
+                                    <div class="footer_subtitle">Gadgets</div>
+                                    <ul class="footer_list">
+                                        <li><a href="#">Car Electronics</a></li>
                                     </ul>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-2 offset-lg-2">
-                            <div class="footer_column">
-                                <div class="footer_title">Find it Fast</div>
-                                <ul class="footer_list">
-                                    <li><a href="#">Computers & Laptops</a></li>
-                                    <li><a href="#">Cameras & Photos</a></li>
-                                    <li><a href="#">Hardware</a></li>
-                                    <li><a href="#">Smartphones & Tablets</a></li>
-                                    <li><a href="#">TV & Audio</a></li>
-                                </ul>
-                                <div class="footer_subtitle">Gadgets</div>
-                                <ul class="footer_list">
-                                    <li><a href="#">Car Electronics</a></li>
-                                </ul>
+                            <div class="col-lg-2">
+                                <div class="footer_column">
+                                    <ul class="footer_list footer_list_2">
+                                        <li><a href="#">Video Games & Consoles</a></li>
+                                        <li><a href="#">Accessories</a></li>
+                                        <li><a href="#">Cameras & Photos</a></li>
+                                        <li><a href="#">Hardware</a></li>
+                                        <li><a href="#">Computers & Laptops</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-2">
-                            <div class="footer_column">
-                                <ul class="footer_list footer_list_2">
-                                    <li><a href="#">Video Games & Consoles</a></li>
-                                    <li><a href="#">Accessories</a></li>
-                                    <li><a href="#">Cameras & Photos</a></li>
-                                    <li><a href="#">Hardware</a></li>
-                                    <li><a href="#">Computers & Laptops</a></li>
-                                </ul>
+                            <div class="col-lg-2">
+                                <div class="footer_column">
+                                    <div class="footer_title">Customer Care</div>
+                                    <ul class="footer_list">
+                                        <li><a href="#">My Account</a></li>
+                                        <li><a href="#">Order Tracking</a></li>
+                                        <li><a href="#">Wish List</a></li>
+                                        <li><a href="#">Customer Services</a></li>
+                                        <li><a href="#">Returns / Exchange</a></li>
+                                        <li><a href="#">FAQs</a></li>
+                                        <li><a href="#">Product Support</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-2">
-                            <div class="footer_column">
-                                <div class="footer_title">Customer Care</div>
-                                <ul class="footer_list">
-                                    <li><a href="#">My Account</a></li>
-                                    <li><a href="#">Order Tracking</a></li>
-                                    <li><a href="#">Wish List</a></li>
-                                    <li><a href="#">Customer Services</a></li>
-                                    <li><a href="#">Returns / Exchange</a></li>
-                                    <li><a href="#">FAQs</a></li>
-                                    <li><a href="#">Product Support</a></li>
-                                </ul>
-                            </div>
                         </div>
-
                     </div>
-                </div>
-            </footer>
+                </footer>
 
 
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script>
-                                                var currentPage = 1;
-                                                var totalPages = ${endPage}; // Assuming endPage is available as a global variable
-
-                                                function loadPage(pageNumber) {
-                                                    if (pageNumber < 1 || pageNumber > totalPages) {
-                                                        return;
-                                                    }
-                                                    $.ajax({
-                                                        url: "/ISP392_Group1/ProductServlet",
-                                                        type: "get",
-                                                        data: {
-                                                            page: pageNumber
-                                                        },
-                                                        success: function (data) {
-                                                            var row = document.getElementById("product-container");
-                                                            row.innerHTML = data;  // Clear current products and load new ones
-                                                            currentPage = pageNumber;
-                                                            updatePagination();
-                                                        },
-                                                        error: function (xhr) {
-                                                            console.error(xhr.responseText);
-                                                        }
-                                                    });
-                                                }
-
-                                                function updatePagination() {
-                                                    var prevButton = document.getElementById("page_prev");
-                                                    var nextButton = document.getElementById("page_next");
-
-                                                    prevButton.classList.toggle("disabled", currentPage === 1);
-                                                    nextButton.classList.toggle("disabled", currentPage === totalPages);
-
-                                                    var pageNav = document.querySelector(".page_nav");
-                                                    pageNav.innerHTML = '';
-                                                    for (var i = 1; i <= totalPages; i++) {
-                                                        var li = document.createElement("li");
-                                                        var a = document.createElement("a");
-                                                        a.href = "javascript:void(0);";
-                                                        a.onclick = (function (pageNumber) {
-                                                            return function () {
-                                                                loadPage(pageNumber);
-                                                            };
-                                                        })(i);
-                                                        a.textContent = i;
-                                                        li.appendChild(a);
-                                                        if (i === currentPage) {
-                                                            li.classList.add("active");
-                                                        }
-                                                        pageNav.appendChild(li);
-                                                    }
-                                                }
-
-                                                document.getElementById("page_prev").addEventListener("click", function () {
-                                                    if (currentPage > 1) {
-                                                        loadPage(currentPage - 1);
-                                                    }
-                                                });
-
-                                                document.getElementById("page_next").addEventListener("click", function () {
-                                                    if (currentPage < totalPages) {
-                                                        loadPage(currentPage + 1);
-                                                    }
-                                                });
-
-                                                document.addEventListener("DOMContentLoaded", function () {
-                                                    updatePagination();
-                                                });
-        </script>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="styles/bootstrap4/popper.js"></script>
-        <script src="styles/bootstrap4/bootstrap.min.js"></script>
-        <script src="plugins/greensock/TweenMax.min.js"></script>
-        <script src="plugins/greensock/TimelineMax.min.js"></script>
-        <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-        <script src="plugins/greensock/animation.gsap.min.js"></script>
-        <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-        <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-        <script src="plugins/easing/easing.js"></script>
-        <script src="plugins/Isotope/isotope.pkgd.min.js"></script>
-        <script src="plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
-        <script src="plugins/parallax-js-master/parallax.min.js"></script>
-        <script src="js/shop_custom.js"></script>
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-        <script>
-                                                window.dataLayer = window.dataLayer || [];
-                                                function gtag() {
-                                                    dataLayer.push(arguments);
-                                                }
-                                                gtag('js', new Date());
 
-                                                gtag('config', 'UA-23581568-13');
-        </script>
-
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-        <script>
-                                                window.dataLayer = window.dataLayer || [];
-                                                function gtag() {
-                                                    dataLayer.push(arguments);
-                                                }
-                                                gtag('js', new Date());
-
-                                                gtag('config', 'UA-23581568-13');
-        </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="styles/bootstrap4/popper.js"></script>
+            <script src="styles/bootstrap4/bootstrap.min.js"></script>
+            <script src="plugins/greensock/TweenMax.min.js"></script>
+            <script src="plugins/greensock/TimelineMax.min.js"></script>
+            <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
+            <script src="plugins/greensock/animation.gsap.min.js"></script>
+            <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
+            <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+            <script src="plugins/easing/easing.js"></script>
+            <script src="plugins/Isotope/isotope.pkgd.min.js"></script>
+            <script src="plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+            <script src="plugins/parallax-js-master/parallax.min.js"></script>
+            <script src="js/shop_custom.js"></script>
 
     </body>
 

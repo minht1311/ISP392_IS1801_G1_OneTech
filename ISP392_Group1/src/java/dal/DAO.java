@@ -22,7 +22,7 @@ public class DAO extends DBContext {
 
     // tao tai khoan
     public void add(Account a) {
-        String sql = "insert into [dbo].[ACCOUNT] (username, email, password, auth_method, role) values(?,?,?,?,?)";
+        String sql = "INSERT INTO `ACCOUNT` (`username`, `email`, `password`, `auth_method`, `role`) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, a.getUsername());
@@ -50,7 +50,7 @@ public class DAO extends DBContext {
     }
 
     public boolean checkUser(String username) {
-        String sql = "select * from [dbo].[ACCOUNT] where username=?";
+        String sql = "SELECT * FROM `ACCOUNT` WHERE `username`=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -278,7 +278,7 @@ public class DAO extends DBContext {
 
     //Hung
     public Account checkAuthen(String username, String password) {
-        String sql = "SELECT * FROM ACCOUNT WHERE username=? AND password=?";
+        String sql = "SELECT * FROM `ACCOUNT` WHERE `username`=? AND `password`=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -411,8 +411,8 @@ public class DAO extends DBContext {
 
         return 0;
     }
-    
-        public int countAllProductOfCategory(String cid) {
+
+    public int countAllProductOfCategory(String cid) {
         String sql = "select count(*) from PRODUCT where categoryID =?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -426,7 +426,7 @@ public class DAO extends DBContext {
 
         return 0;
     }
-    
+
     public List<Product> getTop12() {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM PRODUCT LIMIT 12;";
@@ -476,7 +476,32 @@ public class DAO extends DBContext {
         return list;
     }
 
-        public List<Product> getProductsByCid(String cid) {
+    public List<Product> getProductsByCid(int cid) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from PRODUCT where categoryID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, cid);
+            ResultSet rse = st.executeQuery();
+            while (rse.next()) {
+                Categories c = getCategoryById(rse.getInt("categoryID"));
+                Product p = new Product(rse.getString("id"),
+                        rse.getString("name"),
+                        rse.getDouble("price"),
+                        rse.getString("image"),
+                        rse.getInt("quantity"),
+                        rse.getString("description"),
+                        rse.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public List<Product> getProductsByCid(String cid) {
         List<Product> list = new ArrayList<>();
         String sql = "select * from PRODUCT where categoryID = ?";
         try {
@@ -499,5 +524,60 @@ public class DAO extends DBContext {
 
         }
         return list;
+    }
+
+
+    public List<Product> getProductsByPageSorted(int offset, int limit, String sort, String categoryId) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT";
+            if (categoryId != null && !categoryId.isEmpty()) {
+                sql += " WHERE categoryId = ?";
+            }
+            switch (sort) {
+                case "ASC":
+                    sql += " ORDER BY price ASC";
+                    break;
+                case "DESC":
+                    sql += " ORDER BY price DESC";
+                    break;
+                case "Name":
+                    sql += " ORDER BY name";
+                    break;
+            }
+            sql += " LIMIT ?, ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            int paramIndex = 1;
+            if (categoryId != null && !categoryId.isEmpty()) {
+                ps.setString(paramIndex++, categoryId);
+            }
+            ps.setInt(paramIndex++, offset);
+            ps.setInt(paramIndex, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        DAO d = new DAO();
+        List<Product> p = d.getProductByIndex(0, 6);
+        for (Product product : p) {
+            System.out.println(product.toString());
+        }
+
     }
 }

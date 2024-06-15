@@ -180,7 +180,7 @@
 											<li><a href="#">Garena<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
-									<li><a href="product.jsp">Product<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="shop.jsp">shop<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="blog.html">Forum<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
 								</ul>

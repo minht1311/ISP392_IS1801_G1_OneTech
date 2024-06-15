@@ -20,8 +20,8 @@ import model.Product;
  *
  * @author KimHo
  */
-@WebServlet(name = "Category2Servlet", urlPatterns = {"/Category2Servlet"})
-public class Category2Servlet extends HttpServlet {
+@WebServlet(name = "Category2Servlet", urlPatterns = {"/Category"})
+public class Category extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,18 +64,14 @@ public class Category2Servlet extends HttpServlet {
         String categoryId = request.getParameter("cid");
         DAO d = new DAO();
         int productCount;
-        List<Product> list1;
+        
         int endPage = 0;
-
         if (categoryId == null || categoryId.isEmpty()) {
             // No category selected, show all products
-            list1 = d.getProduct();
             productCount = d.countAllProduct();
         } else {
             // Category selected, show products of that category
-            list1 = d.getProductsByCid(categoryId);
             productCount = d.countAllProductOfCategory(categoryId);
-
         }
         endPage = productCount / 12;
         if (productCount % 12 != 0) {
@@ -84,6 +80,7 @@ public class Category2Servlet extends HttpServlet {
 
         List<Product> list = d.getProductsByCid(categoryId);
         List<Categories> listC = d.getCategory();
+
 
         request.setAttribute("productCount", productCount);
         request.setAttribute("tag", categoryId);
