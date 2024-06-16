@@ -21,10 +21,10 @@ public class DBContext {
             // Edit URL , username, password to authenticate with your MS SQL Server
                       //  String url = "jdbc:sqlserver://DESKTOP-V8RTEMV;databaseName=Project1";
 
-            String url = "jdbc:sqlserver://localhost:1433;databaseName= Project1";
-            String username = "sa";
-            String password = "123";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:mysql://localhost:3306/dbo";
+            String username = "root";
+            String password = "ligma";
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);

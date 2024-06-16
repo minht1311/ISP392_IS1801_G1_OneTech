@@ -515,7 +515,7 @@ section
 }
 .logo
 {
-	top: 50%;
+	top: 100%;
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
@@ -1377,13 +1377,13 @@ select option
 }
 .deals_item_name
 {
-	font-size: 24px;
+	font-size: 22px;
 	font-weight: 400;
 	color: #000000;
 }
 .deals_item_price
 {
-	font-size: 24px;
+	font-size: 22px;
 	font-weight: 500;
 	color: #df3b3b;
 }
@@ -1446,7 +1446,7 @@ select option
 }
 .deals_timer_content
 {
-	padding-bottom: 17px;
+	padding-bottom: 20px;
 }
 .deals_timer_box
 {
@@ -1615,8 +1615,8 @@ select option
 .product_panel
 {
 	display: none;
-	margin-left: -60px;
-	margin-right: -60px;
+	margin-left: -50px !important; 
+	margin-right: -50px !important;
 }
 .product_panel.active
 {

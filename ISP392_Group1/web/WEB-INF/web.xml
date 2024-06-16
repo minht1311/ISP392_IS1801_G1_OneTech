@@ -12,6 +12,14 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>signin.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeControl</servlet-name>
+        <servlet-class>control.HomeControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductControl</servlet-name>
+        <servlet-class>control.ProductControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -23,5 +31,13 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeControl</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductControl</servlet-name>
+        <url-pattern>/product</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -8,7 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import model.Account;
+import model.Product;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import model.Categories;
 
 /**
  *
@@ -18,7 +23,7 @@ public class DAO extends DBContext {
 
     // tao tai khoan
     public void add(Account a) {
-        String sql = "insert into [dbo].[Account] (username, email, password, auth_method) values(?,?,?,?)";
+        String sql = "insert into project1.Account (username, email, password, auth_method) values(?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, a.getUsername());
@@ -31,7 +36,7 @@ public class DAO extends DBContext {
     }
 
     public void update(Account a) {
-        String sql = "UPDATE [dbo].[Account] set [username] = ? ,[password] = ? where [email] = ? ";
+        String sql = "UPDATE project1.Account set [username] = ? ,[password] = ? where [email] = ? ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, a.getUsername());
@@ -45,7 +50,7 @@ public class DAO extends DBContext {
     }
 
     public boolean checkUser(String username) {
-        String sql = "select * from [dbo].[Account] where username=?";
+        String sql = "select * from project1.Account where username=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -60,7 +65,7 @@ public class DAO extends DBContext {
     }
 
     public boolean checkUserEmail(String email) {
-        String sql = "select * from [dbo].[Account] where email= ? and auth_method = 'google' ";
+        String sql = "select * from project1.Account where email= ? and auth_method = 'google' ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
@@ -290,23 +295,10 @@ public class DAO extends DBContext {
         return null;
     }
 
-    public boolean isAdmin(String username) {
-        String sql = "SELECT isAdmin FROM Account WHERE username=?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, username);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                return rs.getBoolean("isAdmin");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return false;
-    }
+
 
     public boolean updatePassword(String email, String newPassword) {
-        String sql = "update [dbo].[Account] set password = ? where email=?";
+        String sql = "update project1.Account set password = ? where email=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, newPassword);
@@ -320,7 +312,7 @@ public class DAO extends DBContext {
     }
 
     public boolean checkEmail(String email) {
-        String sql = "select * from [dbo].[Account] where email=?";
+        String sql = "select * from project1.Account where email=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
@@ -333,5 +325,273 @@ public class DAO extends DBContext {
         }
         return false;
     }
+    
+    // view all category
+    public List<Categories> getCategory() {
+        List<Categories> list = new ArrayList<>();
+        String sql = "select * from project1.CATEGORY where id=id";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Categories c = new Categories(rs.getInt("id"), rs.getString("name"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
+    public Categories getCategoryById(int id) {
+        String sql = "select * from project1.CATEGORY where id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rse = st.executeQuery();
+            if (rse.next()) {
+                Categories c = new Categories(rse.getInt("id"),
+                        rse.getString("name"));
+                return c;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // view all product
+    public List<Product> getProduct() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from project1.PRODUCT where id = id";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rse = st.executeQuery();
+            while (rse.next()) {
+                Categories c = getCategoryById(rse.getInt("categoryID"));
+                Product p = new Product(rse.getString("id"),
+                        rse.getString("name"),
+                        rse.getDouble("price"),
+                        rse.getString("image"),
+                        rse.getInt("quantity"),
+                        rse.getString("description"),
+                        rse.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public int countAllProduct() {
+        String sql = "select count(*) from project.PRODUCT";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+
+        return 0;
+    }
+    
+        public int countAllProductOfCategory(String cid) {
+        String sql = "select count(*) from PRODUCT where categoryID =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, cid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+
+        return 0;
+    }
+    
+    public List<Product> getTop12() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from project1.PRODUCT where id = id LIMIT 12;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rse = st.executeQuery();
+            while (rse.next()) {
+                Categories c = getCategoryById(rse.getInt("categoryID"));
+                Product p = new Product(rse.getString("id"),
+                        rse.getString("name"),
+                        rse.getDouble("price"),
+                        rse.getString("image"),
+                        rse.getInt("quantity"),
+                        rse.getString("description"),
+                        rse.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+    
+    public List<Product> getRandom16() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from project1.PRODUCT where id = id ORDER BY RAND( ) LIMIT 16;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public List<Product> getProductByIndex(int offset, int limit) {
+        
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM project1.PRODUCT ORDER BY categoryID LIMIT ?, ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, offset);
+            st.setInt(2, limit);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+        public List<Product> getProductsByCid(String cid) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from project1.PRODUCT where categoryID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, cid);
+            ResultSet rse = st.executeQuery();
+            while (rse.next()) {
+                Categories c = getCategoryById(rse.getInt("categoryID"));
+                Product p = new Product(rse.getString("id"),
+                        rse.getString("name"),
+                        rse.getInt("price"),
+                        rse.getString("image"),
+                        rse.getInt("quantity"),
+                        rse.getString("description"),
+                        rse.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+        
+        public List<Product> getProductsByID(String id) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from project1.PRODUCT where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rse = st.executeQuery();
+            while (rse.next()) {
+                Categories c = getCategoryById(rse.getInt("categoryID"));
+                Product p = new Product(rse.getString("id"),
+                        rse.getString("name"),
+                        rse.getInt("price"),
+                        rse.getString("image"),
+                        rse.getInt("quantity"),
+                        rse.getString("description"),
+                        rse.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+        
+        public Product getProductByID(String id) {
+        
+        String sql = "select * from project1.PRODUCT where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rse = st.executeQuery();
+            while (rse.next()) {
+                Categories c = getCategoryById(rse.getInt("categoryID"));
+                Product p = new Product(rse.getString("id"),
+                        rse.getString("name"),
+                        rse.getInt("price"),
+                        rse.getString("image"),
+                        rse.getInt("quantity"),
+                        rse.getString("description"),
+                        rse.getInt("discount"),
+                        c);
+                return p;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public List<Product> getAllProducts() {
+        List<Product> list = new ArrayList<>();
+        String query = "select * from project1.PRODUCT where id = id";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Product(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getDouble(8)));
+            }
+        }
+        catch (Exception e) {
+
+        }
+        return list;
+    }
+    public static void main(String[] args) {
+        DAO dao = new DAO();
+        List<Product> listP = dao.getTop12();
+        List<Categories> listC = dao.getCategory();
+        for (Product o : listP) {
+            System.out.println(o);
+        }
+        //Categories catID = dao.getCategoryById(1);
+        //System.out.println(catID);
+        //Categories category = dao.getCategoryById(1);
+        //System.out.println(category);
+        //Product p = dao.getProductByID("shopee100");
+        //System.out.println(p);
+    }
 }

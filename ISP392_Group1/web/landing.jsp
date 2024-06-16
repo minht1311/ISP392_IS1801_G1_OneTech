@@ -528,7 +528,7 @@
                                 best deals and innovations in the tech industry.</p>
                         </div>
                         <div class="col-lg-3 cta-btn-container text-center">
-                            <a class="cta-btn align-middle" href="home.jsp">Go To Our Website</a>
+                            <a class="cta-btn align-middle" href="home">Go To Our Website</a>
                         </div>
                     </div>
 
