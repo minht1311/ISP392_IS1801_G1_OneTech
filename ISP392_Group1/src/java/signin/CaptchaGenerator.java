@@ -16,20 +16,28 @@ import jakarta.servlet.http.HttpSession;
 import javax.imageio.ImageIO;
 import com.google.gson.JsonObject;
 import java.io.PrintWriter;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CaptchaGenerator extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private static final Map<String, String> captchaStore = new ConcurrentHashMap<>();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String newCaptcha = request.getParameter("new");
-
+        System.out.println("newCaptcha" + newCaptcha);
         if (newCaptcha != null && newCaptcha.equals("true")) {
             // Generate a new CAPTCHA
             String newCaptchaId = UUID.randomUUID().toString();
             String newCaptchaValue = generateCaptchaString();
+            captchaStore.put(newCaptchaId, newCaptchaValue);
+            System.out.println("Current CAPTCHA store contents:");
+            for (Map.Entry<String, String> entry : captchaStore.entrySet()) {
+                System.out.println("Captcha ID: " + entry.getKey() + " | Captcha Value: " + entry.getValue());
+            }
             HttpSession session = request.getSession();
             session.setAttribute(newCaptchaId, newCaptchaValue);
 
@@ -93,7 +101,7 @@ public class CaptchaGenerator extends HttpServlet {
     }
 
     public String generateCaptchaString() {
-       // char[] data = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+        // char[] data = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
         char[] data = "0123456789".toCharArray();
         Random random = new Random();
         StringBuilder captchaString = new StringBuilder();
