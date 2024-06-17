@@ -44,7 +44,7 @@
 					<!-- Logo -->
 					<div class="col-lg-2 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="home">OneTech</a></div>
+							<div class="logo" style="top: 50%"><a href="home">OneTech</a></div>
 						</div>
 					</div>
 
@@ -122,72 +122,64 @@
 		<!-- Main Navigation -->
 
 		<nav class="main_nav">
-			<div class="container">
-				<div class="row">
-					<div class="col">
+		<div class="container">
+			<div class="row">
+				<div class="col">
 
-						<div class="main_nav_content d-flex flex-row">
+					<div class="main_nav_content d-flex flex-row">
 
-							<!-- Categories Menu -->
+						<!-- Categories Menu -->
 
-							<div class="cat_menu_container">
-								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
-									<div class="cat_burger"><span></span><span></span><span></span></div>
-									<div class="cat_menu_text">categories</div>
-								</div>
-
-								<ul class="cat_menu">
-									<c:forEach items="${listC}" var="o">
-                                                                            <li><a class="clc" href="#">${o.name}</a></li>
-                                                                        </c:forEach>
-								</ul>
+						<div class="cat_menu_container">
+							<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+								<div class="cat_burger"><span></span><span></span><span></span></div>
+								<div class="cat_menu_text">categories</div>
 							</div>
 
-							<!-- Main Nav Menu -->
-
-							<div class="main_nav_menu ml-auto">
-								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li class="hassubs">
-										<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
-										<ul>
-
-											<li><a href="#">VCoin<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Vinaphone<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">GATE<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">Zing<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">GATE<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Mobifone<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Garena<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
-									<li><a href="product.jsp">Product<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="blog.html">Forum<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
-								</ul>
-							</div>
-
-							<!-- Menu Trigger -->
-
-							<div class="menu_trigger_container ml-auto">
-								<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
-									<div class="menu_burger">
-										<div class="menu_trigger_text">menu</div>
-										<div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
-									</div>
-								</div>
-							</div>
-
+							<ul class="cat_menu">
+								<c:forEach items="${listC}" var="o">
+                                                                        <li><a class="clc" href="#">${o.name}</a></li>
+                                                                    </c:forEach>
+							</ul>
 						</div>
+
+						<!-- Main Nav Menu -->
+
+						<div class="main_nav_menu ml-auto">
+							<ul class="standard_dropdown main_nav_dropdown">
+								<li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
+								<li class="hassubs">
+									<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
+									<ul>
+
+										<li><a href="superdeals?categoryID=3">VCoin<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="superdeals?categoryID=8">Vinaphone<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="superdeals?categoryID=5">GATE<i class="fas fa-chevron-down"></i></a></li>
+									</ul>
+								</li>
+								
+								<li><a href="shop">Shop<i class="fas fa-chevron-down"></i></a></li>
+								<li><a href="blog.html">Forum<i class="fas fa-chevron-down"></i></a></li>
+								<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+							</ul>
+						</div>
+
+						<!-- Menu Trigger -->
+
+						<div class="menu_trigger_container ml-auto">
+							<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+								<div class="menu_burger">
+									<div class="menu_trigger_text">menu</div>
+									<div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
-		</nav>
+		</div>
+	</nav>
 
 		
 	</header>
@@ -231,7 +223,7 @@
 
 								</div>
 
-								<div class="product_price" style="font-size: 25px;">${product.price}đ</div>
+								<div class="product_price" style="font-size: 25px;">${product.getFormattedPrice()} VND</div>
 								<div class="button_container">
 									<button type="button" class="button cart_button">Add to Cart</button>
 									<div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -273,7 +265,7 @@
 								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                                                     <div class="viewed_image d-flex flex-column align-items-center justify-content-center"><a href="product?id=${o.id}"><img src="${o.image}" style="vertical-align:middle" alt=""></a></div>
 									<div class="viewed_content text-center">
-										<div class="product_price"><a href="product?id=${o.id}">${o.price}đ</a></div>
+										<div class="product_price"><a href="product?id=${o.id}">${o.getFormattedPrice()} VND</a></div>
 										<div class="product_name"><div><a href="product?id=${o.id}">${o.name}</a></div></div>
 									</div>
 									<ul class="item_marks">
@@ -281,7 +273,20 @@
 								</div>
 							</div>
                                                         </c:forEach>
-
+                                                        
+                                                        <c:forEach items="${listP3}" var="o">
+							<div class="owl-item">
+								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                                                    <div class="viewed_image d-flex flex-column align-items-center justify-content-center"><a href="product?id=${o.id}"><img src="${o.image}" style="vertical-align:middle" alt=""></a></div>
+									<div class="viewed_content text-center">
+										<div class="product_price"><a href="product?id=${o.id}">${o.getFormattedPrice()} VND</a></div>
+										<div class="product_name"><div><a href="product?id=${o.id}">${o.name}</a></div></div>
+									</div>
+									<ul class="item_marks">
+									</ul>
+								</div>
+							</div>
+                                                        </c:forEach>
 						</div>
 					</div>
 				</div>

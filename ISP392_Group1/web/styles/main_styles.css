@@ -515,7 +515,7 @@ section
 }
 .logo
 {
-	top: 100%;
+	top: 50%;
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
@@ -1011,6 +1011,8 @@ select option
 	padding-right: 15px;
 	margin-right: 0px;
 }
+
+
 .menu_trigger_container
 {
 	display: none;
@@ -1751,6 +1753,17 @@ select option
 	visibility: visible;
 	opacity: 1;
 }
+
+.featured_slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+.featured_slider_item {
+    flex: 0 0 auto;
+    margin-right: 15px; /* Adjust spacing between items as needed */
+}
+
 .product_color input
 {
 	-webkit-appearance: none;

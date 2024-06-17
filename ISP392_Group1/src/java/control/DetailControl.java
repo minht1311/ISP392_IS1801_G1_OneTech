@@ -13,14 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Product;
 import model.Categories;
+import model.Product;
 
 /**
  *
  * @author MTTRBLX
  */
-public class HomeControl extends HttpServlet {
+public class DetailControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,7 +31,6 @@ public class HomeControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
         
     } 
 
@@ -47,28 +46,22 @@ public class HomeControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String txtSearch = request.getParameter("txt");
+
+        String pid = request.getParameter("id");
+        
         DAO dao = new DAO();
         
-        List<Product> listP = dao.getRandom16();
-        List<Product> listP2 = dao.getRandom16();
-        List<Product> listP3 = dao.getRandom16();
-        List<Product> listSearch = dao.searchByName(txtSearch);
-        List<Product> listP4 = dao.getRandom16();
-        List<Product> listTop3 = dao.getProductByIndex(4,3);
-        Product p = dao.getProductByID("vcoin100");
-        
+        Product p = dao.getProductByID(pid);
+        List<Product> listP2 = dao.getSimilarPrice(pid);
+        List<Product> listP3 = dao.getSimilarCategory(pid);
         List<Categories> listC = dao.getCategory();
         
-        request.setAttribute("listP", listP);
+        request.setAttribute("product", p);
         request.setAttribute("listP2", listP2);
         request.setAttribute("listP3", listP3);
-        request.setAttribute("listSearch", listSearch);
-        request.setAttribute("listP4", listP4);
-        request.setAttribute("product", p);
-        request.setAttribute("listTop3", listTop3);
         request.setAttribute("listC", listC);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        
+        request.getRequestDispatcher("detail.jsp").forward(request, response);
     } 
 
     /** 

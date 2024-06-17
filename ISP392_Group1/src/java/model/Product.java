@@ -97,6 +97,14 @@ public class Product {
     public String getFormattedPrice() {
         return String.format("%.0f", price);
     }
+    
+    public String getFormattedDiscount() {
+        return String.format("%.0f", discount);
+    }
+    
+    public String getPercentDiscount() {
+        return String.format("%.0f",price - price * (discount/100));
+    }
 
     public void setPrice(double price) {
         this.price = price;

@@ -461,6 +461,81 @@ public class DAO extends DBContext {
         }
         return list;
     }
+    
+    public List<Product> getSimilarPrice(String id) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM project1.PRODUCT WHERE price = (SELECT price FROM PRODUCT WHERE id = ?) LIMIT 4;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+    
+    public List<Product> getSimilarCategory(String id) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM project1.PRODUCT WHERE categoryID = (SELECT categoryID FROM PRODUCT WHERE id = ?) LIMIT 4;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+    
+    public List<Product> getSuperDeals(String cid) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM project1.PRODUCT WHERE discount > 0 AND categoryID = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, cid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
 
     public List<Product> getProductByIndex(int offset, int limit) {
         
@@ -538,6 +613,31 @@ public class DAO extends DBContext {
         return list;
     }
         
+        public List<Product> searchByName(String txtSearch) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from project1.PRODUCT where name like ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" +txtSearch + "%");
+            ResultSet rse = st.executeQuery();
+            while (rse.next()) {
+                Categories c = getCategoryById(rse.getInt("categoryID"));
+                Product p = new Product(rse.getString("id"),
+                        rse.getString("name"),
+                        rse.getInt("price"),
+                        rse.getString("image"),
+                        rse.getInt("quantity"),
+                        rse.getString("description"),
+                        rse.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+        
         public Product getProductByID(String id) {
         
         String sql = "select * from project1.PRODUCT where id = ?";
@@ -580,9 +680,337 @@ public class DAO extends DBContext {
         }
         return list;
     }
+    
+    public List<Product> getProductsSortedByPriceAsc(int offset, int limit) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Product ORDER BY price ASC;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsSortedByPriceDesc(int offset, int limit) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Product ORDER BY price DESC;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsSortedByNameAsc(int offset, int limit) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Product ORDER BY name ASC;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsByCidForCategory(String categoryId, int limit, int offset) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT WHERE categoryId = ? LIMIT ? OFFSET ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, categoryId);
+            ps.setInt(2, limit);
+            ps.setInt(3, offset);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsByCidForCategory1(int categoryId) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT WHERE categoryId = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsSortedByPriceAscForCategory(String categoryId, int limit, int offset) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT WHERE categoryId = ? ORDER BY price ASC LIMIT ? OFFSET ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, categoryId);
+            ps.setInt(2, limit);
+            ps.setInt(3, offset);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsSortedByPriceAscForCategory1(int categoryId) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT WHERE categoryId = ? ORDER BY price ASC";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsSortedByPriceDescForCategory(String categoryId, int limit, int offset) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT WHERE categoryId = ? ORDER BY price DESC LIMIT ? OFFSET ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, categoryId);
+            ps.setInt(2, limit);
+            ps.setInt(3, offset);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsSortedByPriceDescForCategory1(int categoryId) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT WHERE categoryId = ? ORDER BY price DESC";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsSortedByNameAscForCategory(String categoryId, int offset, int limit) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT WHERE categoryId = ? ORDER BY name ASC LIMIT ? OFFSET ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, categoryId);
+            ps.setInt(2, limit);
+            ps.setInt(3, offset);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsSortedByNameAscForCategory1(int categoryId) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT WHERE categoryId = ? ORDER BY name ASC";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsByPageSorted(int offset, int limit, String sort, String categoryId) {
+        List<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM PRODUCT";
+            if (categoryId != null && !categoryId.isEmpty()) {
+                sql += " WHERE categoryId = ?";
+            }
+            switch (sort) {
+                case "ASC":
+                    sql += " ORDER BY price ASC";
+                    break;
+                case "DESC":
+                    sql += " ORDER BY price DESC";
+                    break;
+                case "Name":
+                    sql += " ORDER BY name";
+                    break;
+            }
+            sql += " LIMIT ?, ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            int paramIndex = 1;
+            if (categoryId != null && !categoryId.isEmpty()) {
+                ps.setString(paramIndex++, categoryId);
+            }
+            ps.setInt(paramIndex++, offset);
+            ps.setInt(paramIndex, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
         DAO dao = new DAO();
-        List<Product> listP = dao.getTop12();
+        List<Product> listP = dao.searchByName("shopee");
         List<Categories> listC = dao.getCategory();
         for (Product o : listP) {
             System.out.println(o);

@@ -19,6 +19,11 @@
         <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
         <link rel="stylesheet" type="text/css" href="styles/responsive.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+        <style>
+        #search-results {
+            display: none;
+        }
+    </style>
 
     </head>
 
@@ -28,251 +33,288 @@
 
 	<!-- Header -->
 
-	<header class="header">
+<header class="header">
 
-		<!-- Top Bar -->
+	<!-- Top Bar -->
 
-		<jsp:include page="menu.jsp"></jsp:include>
+	<jsp:include page="menu.jsp"></jsp:include>
 
-		<!-- Header Main -->
+	<!-- Header Main -->
 
-		<div class="header_main">
-			<div class="container">
-				<div class="row">
-
-					<!-- Logo -->
-					<div class="col-lg-2 col-sm-3 col-3 order-1">
-						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
-						</div>
-					</div>
-
-					<!-- Search -->
-					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
-						<div class="header_search">
-							<div class="header_search_content">
-								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Search for products...">
-										<div class="custom_dropdown">
-											<div class="custom_dropdown_list">
-												<span class="custom_dropdown_placeholder clc">All Categories</span>
-												<i class="fas fa-chevron-down"></i>
-												<ul class="custom_list clc">
-                                                                                                    <c:forEach items="${listC}" var="o">
-													<li><a class="clc" href="#">${o.name}</a></li>
-                                                                                                    </c:forEach>
-												</ul>
-											</div>
-										</div>
-										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- Wishlist -->
-					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
-						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
-                                                <%
-                                                String user = (String) session.getAttribute("user");
-
-                                                %>
-
-							<!-- Cart -->
-                                                <%
-                                                if (user != null) {
-                                                %>
-							<div class="cart">
-								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
-									<div class="cart_icon">
-										<img src="images/cart.png" alt="">
-										<div class="cart_count"><span>10</span></div>
-									</div>
-									<div class="cart_content">
-										<div class="cart_text"><a href="cart.jsp">Cart</a></div>
-										<div class="cart_price">$85</div>
-									</div>
-								</div>
-							</div>
-                                                <%
-                                                    } else {
-                                                %>
-                                                        <div class="cart">
-								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
-									<div class="cart_icon">
-                                                                            <a href="login.jsp"><img src="images/cart2.png" alt=""></a>
-									</div>
-									<div class="cart_content">
-										<div class="cart_text"><a href="login.jsp">Cart</a></div>
-									</div>
-								</div>
-							</div>
-                                                <%
-                                                    }
-                                                %>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Main Navigation -->
-
-		<nav class="main_nav">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-
-						<div class="main_nav_content d-flex flex-row">
-
-							<!-- Categories Menu -->
-
-							<div class="cat_menu_container">
-								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
-									<div class="cat_burger"><span></span><span></span><span></span></div>
-									<div class="cat_menu_text">categories</div>
-								</div>
-
-								<ul class="cat_menu">
-									<c:forEach items="${listC}" var="o">
-                                                                            <li><a class="clc" href="#">${o.name}</a></li>
-                                                                        </c:forEach>
-								</ul>
-							</div>
-
-							<!-- Main Nav Menu -->
-
-							<div class="main_nav_menu ml-auto">
-								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li class="hassubs">
-										<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
-										<ul>
-
-											<li><a href="#">VCoin<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Vinaphone<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">GATE<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
-									<li class="hassubs">
-										<a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">Zing<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">GATE<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Mobifone<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Garena<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
-									</li>
-									
-									<li><a href="blog.html">Forum<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
-								</ul>
-							</div>
-
-							<!-- Menu Trigger -->
-
-							<div class="menu_trigger_container ml-auto">
-								<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
-									<div class="menu_burger">
-										<div class="menu_trigger_text">menu</div>
-										<div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</nav>
-
-		<!-- Menu -->
-
-		
-	</header>
-
-	<!-- Banner -->
-
-	<div class="banner">
-		<div class="banner_background" style="background-image:url(images/banner_background.jpg)"></div>
-		<div class="container fill_height">
-			<div class="row fill_height">
-                            <div class="banner_product_image"><img src="images/banner1.png" height="400" width="auto" style="vertical-align:middle;margin:-0px -120px;" alt=""></div>
-				<div class="col-lg-6 offset-lg-3 fill_height">
-					
-						<div class="logo_container">
-							<div class="logo" style="top: 100%;text-align: center;"><a href="#" style="font-size: 95px;">OneTech</a></div>
-						</div>
-                                    <div class="logo_container">
-							
-						</div>
-					
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Characteristics -->
-
-	<div class="characteristics">
+	<div class="header_main">
 		<div class="container">
 			<div class="row">
 
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
+				<!-- Logo -->
+				<div class="col-lg-2 col-sm-3 col-3 order-1">
+					<div class="logo_container">
+						<div class="logo"style="top: 50%"><a href="#">OneTech</a></div>
+					</div>
+				</div>
 
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="images/char_1.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Instant Purchase</div>
-							<div class="char_subtitle">For Cards & Vouchers</div>
+				<!-- Search -->
+				<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+					<div class="header_search">
+						<div class="header_search_content">
+							<div class="header_search_form_container">
+                                                                <form action="search" method="post" class="header_search_form clearfix">
+									<input name="txt" type="text" required="required" class="header_search_input" placeholder="Search for products...">
+									<div class="custom_dropdown">
+										<div class="custom_dropdown_list">
+											<span class="custom_dropdown_placeholder clc">All Categories</span>
+											<i class="fas fa-chevron-down"></i>
+											<ul class="custom_list clc">
+                                                                                                <c:forEach items="${listC}" var="o">
+												<li><a class="clc" href="#">${o.name}</a></li>
+                                                                                                </c:forEach>
+											</ul>
+										</div>
+									</div>
+									<button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
+				<!-- Wishlist -->
+				<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+					<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                                            <%
+                                            String user = (String) session.getAttribute("user");
 
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="images/char_2.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Quick Restock</div>
-							<div class="char_subtitle">Refreshes everyday</div>
+                                            %>
+
+						<!-- Cart -->
+                                            <%
+                                            if (user != null) {
+                                            %>
+						<div class="cart">
+							<div class="cart_container d-flex flex-row align-items-center justify-content-end">
+								<div class="cart_icon">
+									<img src="images/cart.png" alt="">
+									<div class="cart_count"><span>10</span></div>
+								</div>
+								<div class="cart_content">
+									<div class="cart_text"><a href="cart.jsp">Cart</a></div>
+									<div class="cart_price">$85</div>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
-
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="images/char_3.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Coupon Wallet</div>
-							<div class="char_subtitle">Applies to purchases</div>
+                                            <%
+                                                } else {
+                                            %>
+                                                    <div class="cart">
+							<div class="cart_container d-flex flex-row align-items-center justify-content-end">
+								<div class="cart_icon">
+                                                                        <a href="login.jsp"><img src="images/cart2.png" alt=""></a>
+								</div>
+								<div class="cart_content">
+									<div class="cart_text"><a href="login.jsp">Cart</a></div>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
-
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="images/char_4.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Discounts</div>
-							<div class="char_subtitle">Site-wide</div>
-						</div>
+                                            <%
+                                                }
+                                            %>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Deals of the week -->
+	<!-- Main Navigation -->
 
+	<nav class="main_nav">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+
+					<div class="main_nav_content d-flex flex-row">
+
+						<!-- Categories Menu -->
+
+						<div class="cat_menu_container">
+							<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+								<div class="cat_burger"><span></span><span></span><span></span></div>
+								<div class="cat_menu_text">categories</div>
+							</div>
+
+							<ul class="cat_menu">
+								<c:forEach items="${listC}" var="o">
+                                                                        <li><a class="clc" href="#">${o.name}</a></li>
+                                                                    </c:forEach>
+							</ul>
+						</div>
+
+						<!-- Main Nav Menu -->
+
+						<div class="main_nav_menu ml-auto">
+							<ul class="standard_dropdown main_nav_dropdown">
+								<li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
+								<li class="hassubs">
+									<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
+									<ul>
+
+										<li><a href="superdeals?categoryID=3">VCoin<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="superdeals?categoryID=8">Vinaphone<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="superdeals?categoryID=5">GATE<i class="fas fa-chevron-down"></i></a></li>
+									</ul>
+								</li>
+								
+								<li><a href="shop">Shop<i class="fas fa-chevron-down"></i></a></li>
+								<li><a href="blog.html">Forum<i class="fas fa-chevron-down"></i></a></li>
+								<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+							</ul>
+						</div>
+
+						<!-- Menu Trigger -->
+
+						<div class="menu_trigger_container ml-auto">
+							<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+								<div class="menu_burger">
+									<div class="menu_trigger_text">menu</div>
+									<div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Menu -->
+
+	
+</header>
+
+<!-- Banner -->
+
+<div class="banner">
+	<div class="banner_background" style="background-image:url(images/banner_background.jpg)"></div>
+	<div class="container fill_height">
+		<div class="row fill_height">
+                        <div class="banner_product_image"><img src="images/banner1.png" height="300" width="auto" style="vertical-align:middle;margin:40px -10px;" alt=""></div>
+			<div class="col-lg-6 offset-lg-3 fill_height">
+				
+					<div class="logo_container">
+						<div class="logo" style="top: 100%;text-align: center;"><a href="#" style="font-size: 95px;">OneTech</a></div>
+					</div>
+                                <div class="logo_container">
+						
+					</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Characteristics -->
+
+<div class="characteristics">
+	<div class="container">
+		<div class="row">
+
+			<!-- Char. Item -->
+			<div class="col-lg-3 col-md-6 char_col">
+
+				<div class="char_item d-flex flex-row align-items-center justify-content-start">
+					<div class="char_icon"><img src="images/char_1.png" alt=""></div>
+					<div class="char_content">
+						<div class="char_title">Instant Purchase</div>
+						<div class="char_subtitle">For Cards & Vouchers</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Char. Item -->
+			<div class="col-lg-3 col-md-6 char_col">
+
+				<div class="char_item d-flex flex-row align-items-center justify-content-start">
+					<div class="char_icon"><img src="images/char_2.png" alt=""></div>
+					<div class="char_content">
+						<div class="char_title">Quick Restock</div>
+						<div class="char_subtitle">Refreshes everyday</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Char. Item -->
+			<div class="col-lg-3 col-md-6 char_col">
+
+				<div class="char_item d-flex flex-row align-items-center justify-content-start">
+					<div class="char_icon"><img src="images/char_3.png" alt=""></div>
+					<div class="char_content">
+						<div class="char_title">Coupon Wallet</div>
+						<div class="char_subtitle">Applies to purchases</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Char. Item -->
+			<div class="col-lg-3 col-md-6 char_col">
+
+				<div class="char_item d-flex flex-row align-items-center justify-content-start">
+					<div class="char_icon"><img src="images/char_4.png" alt=""></div>
+					<div class="char_content">
+						<div class="char_title">Discounts</div>
+						<div class="char_subtitle">Site-wide</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Deals of the week -->
+
+    <div class="viewed">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="viewed_title_container">
+                                            <h3 class="viewed_title">Search Results</h3>    
+						<div class="viewed_nav_container">
+							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
+							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
+						</div>
+					</div>
+
+					<div class="viewed_slider_container">
+
+						<!-- Recently Viewed Slider -->
+
+						<div class="owl-carousel owl-theme viewed_slider">
+
+							<!-- Recently Viewed Item -->
+                                                        <c:forEach items="${listSearch}" var="o">
+							<div class="owl-item">
+								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+									<div class="viewed_image d-flex flex-column align-items-center justify-content-center"><a href="detail?id=${o.id}"><img src="${o.image}" style="vertical-align:middle" alt=""></a></div>
+									<div class="viewed_content text-center">
+                                                                            <div class="product_price"><a href="detail?id=${o.id}">${o.getPercentDiscount()} VND</a></div>
+										<div class="product_name"><div><a href="detail?id=${o.id}">${o.name}</a></div></div>
+									</div>
+									<ul class="item_marks">
+										<li class="item_mark item_discount">${o.discount}%</li>
+										<li class="item_mark item_new">new</li>
+									</ul>
+								</div>
+							</div>
+                                                        </c:forEach>
+
+						</div>
+                                                    
+                                                
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+        
 	<div class="deals_featured">
 		<div class="container">
 			<div class="row">
@@ -290,11 +332,11 @@
                                                             <c:forEach items="${listTop3}" var="o">
 								<!-- Deals Item -->
 								<div class="owl-item deals_item">
-                                                                    <div class="deals_image"> <a href="product?id=${o.id}"><img src="${o.image}" alt=""></a></div>
+                                                                    <div class="deals_image"> <a href="detail?id=${o.id}"><img src="${o.image}" alt=""></a></div>
 									<div class="deals_content">
 										<div class="deals_info_line d-flex flex-row justify-content-start">
-											<div class="deals_item_name"><a href="product?id=${o.id}">${o.name}</a></div>
-											<div class="deals_item_price ml-auto">${o.price}đ</div>
+											<div class="deals_item_name"><a href="detail?id=${o.id}">${o.name}</a></div>
+											<div class="deals_item_price ml-auto">${o.getPercentDiscount()} VND</div>
 										</div>
 										<div class="available">
 											<div class="available_line d-flex flex-row justify-content-start">
@@ -364,19 +406,27 @@
 										<div class="border_active"></div>
 
 										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="product?id=${o.id}"><img src="${o.image}" height="85" width="auto" style="vertical-align:middle" alt=""></a></div>
+                                                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="detail?id=${o.id}"><img src="${o.image}" height="85" width="auto" style="vertical-align:middle" alt=""></a></div>
 											<div class="product_content">
-                                                                                            <div class="product_price"><a href="product?id=${o.id}">${o.price}đ</a></div>
-												<div class="product_name"><div><a href="product?id=${o.id}">${o.name}</a></div></div>
+                                                                                            <div class="product_price"><a href="detail?id=${o.id}">${o.getPercentDiscount()} VND</a></div>
+												<div class="product_name"><div><a href="detail?id=${o.id}">${o.name}</a></div></div>
 												<div class="product_extras">
 
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
+											
 											<ul class="product_marks">
-
-											</ul>
+                                                                                        <c:choose> 
+                                                                                            <c:when test= "${o.discount > 0}">
+                                                                                                <li class="product_mark product_discount">${o.discount}%</li>
+                                                                                                <li class="product_mark product_new">new</li>
+                                                                                             </c:when>
+                                                                                        <c:otherwise>
+                                                                                
+                                                                                        </c:otherwise>
+                                                                                        </c:choose>
+                                                                                        </ul>
 
 										</div>
 
@@ -404,19 +454,27 @@
 										<div class="border_active"></div>
 
 										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="product?id=${o.id}"><img src="${o.image}" height="85" width="auto" style="vertical-align:middle" alt=""></a></div>
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="detail?id=${o.id}"><img src="${o.image}" height="85" width="auto" style="vertical-align:middle" alt=""></a></div>
 											<div class="product_content">
-                                                                                        <div class="product_price"><a href="product?id=${o.id}">${o.price}đ</a></div>
-												<div class="product_name"><div><a href="product?id=${o.id}">${o.name}</a></div></div>
+                                                                                        <div class="product_price"><a href="detail?id=${o.id}">${o.getPercentDiscount()} VND</a></div>
+												<div class="product_name"><div><a href="detail?id=${o.id}">${o.name}</a></div></div>
 												<div class="product_extras">
 
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
+											
 											<ul class="product_marks">
-
-											</ul>
+                                                                                        <c:choose> 
+                                                                                            <c:when test= "${o.discount > 0}">
+                                                                                                <li class="product_mark product_discount">${o.discount}%</li>
+                                                                                                <li class="product_mark product_new">new</li>
+                                                                                             </c:when>
+                                                                                        <c:otherwise>
+                                                                                
+                                                                                        </c:otherwise>
+                                                                                        </c:choose>
+                                                                                        </ul>
 
 										</div>
 
@@ -454,8 +512,8 @@
 							<div class="new_arrivals_title">Top 10 Products</div>
 							<ul class="clearfix">
 								
-								<li>Audio & Video</li>
-								<li>Laptops & Computers</li>
+								<li>Cards</li>
+								<li>Vouchers</li>
 							</ul>
 							<div class="tabs_line"><span></span></div>
 						</div>
@@ -1321,12 +1379,21 @@
                                                         <c:forEach items="${listP}" var="o">
 							<div class="owl-item">
 								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image d-flex flex-column align-items-center justify-content-center"><a href="product?id=${o.id}"><img src="${o.image}" style="vertical-align:middle" alt=""></a></div>
+									<div class="viewed_image d-flex flex-column align-items-center justify-content-center"><a href="detail?id=${o.id}"><img src="${o.image}" style="vertical-align:middle" alt=""></a></div>
 									<div class="viewed_content text-center">
-                                                                            <div class="product_price"><a href="product?id=${o.id}">${o.price}đ</a></div>
-										<div class="product_name"><div><a href="product?id=${o.id}">${o.name}</a></div></div>
+                                                                            <div class="product_price"><a href="detail?id=${o.id}">${o.getPercentDiscount()} VND</a></div>
+										<div class="product_name"><div><a href="detail?id=${o.id}">${o.name}</a></div></div>
 									</div>
 									<ul class="item_marks">
+                                                                            <c:choose> 
+                                                                                <c:when test= "${o.discount > 0}">
+                                                                            <li class="item_mark item_discount">${o.discount}%</li>
+										<li class="item_mark item_new">new</li>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                
+                                                                                </c:otherwise>
+                                                                                </c:choose>
 									</ul>
 								</div>
 							</div>
