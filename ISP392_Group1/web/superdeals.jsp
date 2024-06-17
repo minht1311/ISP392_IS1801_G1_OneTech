@@ -144,7 +144,7 @@
 
 								<ul class="cat_menu">
 									<c:forEach items="${listC}" var="o">
-                                                                            <li><a class="clc" href="#">${o.name}</a></li>
+                                                                            <li><a class="clc" href="shop?cid=${o.id}&sort_by=">${o.name}</a></li>
                                                                         </c:forEach>
 								</ul>
 							</div>
