@@ -1255,6 +1255,7 @@ select option
 /*********************************
 5. Shop
 *********************************/
+
 .shop
 {
 	background: #FFFFFF;
@@ -1288,7 +1289,7 @@ select option
 .shop_sorting span
 {
 	display: inline-block;
-	font-weight: 800;
+	font-weight: 500;
 }
 .shop_sorting > ul
 {

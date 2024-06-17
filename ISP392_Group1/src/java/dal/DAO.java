@@ -339,6 +339,61 @@ public class DAO extends DBContext {
         return false;
     }
 
+    public Product getProductsById(String id) {
+        String sql = "select * from PRODUCT where id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"), rs.getString("name"), rs.getInt("price"), rs.getString("image"),
+                        rs.getInt("quantity"), rs.getString("description"), rs.getInt("discount"), rs.getString("status"), c);
+
+                return p;
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    public void insertP(Product p) {
+        String sql = "INSERT INTO PRODUCT (id, name, categoryID, price, image, quantity, description, discount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, p.getId());
+            st.setString(2, p.getName());
+            st.setInt(3, p.getCategory().getId());
+            st.setDouble(4, p.getPrice());
+            st.setString(5, p.getImage());
+            st.setInt(6, p.getQuantity());
+            st.setString(7, p.getDescription());
+            st.setInt(8, p.getDiscount());
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public void updateP(Product p) {
+        String sql = "UPDATE PRODUCT SET name=?, price=?, quantity=?, description=?, discount=?, image=?, categoryID=? WHERE id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, p.getName());
+            st.setDouble(2, p.getPrice());
+            st.setInt(3, p.getQuantity());
+            st.setString(4, p.getDescription());
+            st.setInt(5, p.getDiscount());
+            st.setString(6, p.getImage());
+            st.setInt(7, p.getCategory().getId());
+            st.setString(8, p.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // view all category
     public List<Categories> getCategory() {
         List<Categories> list = new ArrayList<>();
@@ -526,7 +581,6 @@ public class DAO extends DBContext {
         return list;
     }
 
-
     public List<Product> getProductsByPageSorted(int offset, int limit, String sort, String categoryId) {
         List<Product> list = new ArrayList<>();
         try {
@@ -570,6 +624,86 @@ public class DAO extends DBContext {
             e.printStackTrace();
         }
         return list;
+    }
+    //search products
+
+    public List<Product> searchProducts(String txt) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Product WHERE name LIKE ? OR price LIKE ? OR quantity LIKE ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            String searchPattern = "%" + txt + "%";
+            st.setString(1, searchPattern);
+            st.setString(2, searchPattern);
+            st.setString(3, searchPattern);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                list.add(new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        rs.getString("status"), c));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //search product in a particular category
+    public List<Product> searchProductsByCid(int categoryID, String txt) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Product WHERE categoryID = ? and (name LIKE ? OR price LIKE ? OR quantity LIKE ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setInt(1, categoryID);
+            String searchPattern = "%" + txt + "%";
+            st.setString(2, searchPattern);
+            st.setString(3, searchPattern);
+            st.setString(4, searchPattern);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                list.add(new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        rs.getString("status"), c));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //get product by id
+    public Product getProductById(String productId) {
+        Product product = null;
+        String sql = "SELECT * FROM Product WHERE id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, productId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID")); // Thay đổi cách lấy category theo nhu cầu
+                product = new Product(rs.getString("id"), rs.getString("name"), rs.getInt("price"), rs.getString("image"),
+                        rs.getInt("quantity"), rs.getString("description"), rs.getInt("discount"), rs.getString("status"), c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
     }
 
     public static void main(String[] args) {
