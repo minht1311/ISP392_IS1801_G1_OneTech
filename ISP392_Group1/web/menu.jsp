@@ -53,6 +53,7 @@
 
                                 <%
                                 String user = (String) session.getAttribute("user");
+                                String role = (String) session.getAttribute("role");
                                 if (user != null) {
                                 %>
                                 <ul class="standard_dropdown top_bar_dropdown">
@@ -60,9 +61,19 @@
                                     <li>
                                         <a href="#">Welcome, <%= user %><i class="fas fa-chevron-down"></i></a>
                                         <ul>
-                                            <li><a href="#">Wishlist</a></li>
-                                            <li><a href="#">Cart</a></li>
-                                            <li><a href="#">Change Password</a></li>
+                                            <c:if test="${role eq 'user'}">
+                                                <li><a href="#">Wishlist</a></li>
+
+                                                <li><a href="UpdateProfile">My Account</a></li>
+                                                </c:if>
+                                                <c:if test="${role eq 'admin'}">
+                                                <li><a href="ManageAccount">Management</a></li>
+                                                </c:if>
+                                                <c:if test="${role eq 'user'}">
+                                                <li><a href="#">Cart</a></li>
+
+                                                <li><a href="ChangePassword">Change Password</a></li>
+                                                </c:if>
                                             <li><a href="#" id="logoutLink">Logout</a></li>
                                         </ul>
                                     </li>

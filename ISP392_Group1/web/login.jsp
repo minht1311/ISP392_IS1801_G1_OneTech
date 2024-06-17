@@ -2,11 +2,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.UUID" %>
 <%@ page import="java.util.Random" %>
-<%
-response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-response.setDateHeader("Expires", 0); // Proxies.
-%>
 
 <%
 // Invalidate the current session to ensure a new session is created
@@ -24,10 +19,7 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/style.css">
-        <script>
-            window.history.forward();
-        </script>
+        <link rel="stylesheet" href="css/style.css">      
         <style>
             .captcha-container {
                 display: flex;
@@ -119,7 +111,7 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
                                             <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
                                             <a href="https://x.com/two_toner/" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
                                         </p>
-                                    </div>
+                                </div>
                                 </div>
                                 <form id="login-form" action="LoginServlet" method="post" class="signin-form">
                                     <div class="form-group mt-3">
@@ -161,10 +153,10 @@ session.setAttribute(captchaId, new signin.CaptchaGenerator().generateCaptchaStr
                                     </div>
                                 </form>
                                 <p class="text-center">Not a member? <a href="register.jsp">Sign Up</a></p>
-                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://your-domain.com/LoginServlet&response_type=code&client_id=your-client-id.apps.googleusercontent.com&approval_prompt=force" class="google-btn">
-                                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width="20" height="20">
-                                    Login With Google
-                                </a>
+<!--                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://http://localhost:9999/ISP392_Group1/LoginServlet&response_type=code&client_id=957942724914-d7o66vc94gln7kiiifn5j5k1cn6pjvet.apps.googleusercontent.com&approval_prompt=force">Login with Google</a>
+                                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width="20" height="20">
+                                Login With Google
+                                </a>-->
                             </div>
                         </div>
                     </div>

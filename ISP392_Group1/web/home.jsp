@@ -43,7 +43,7 @@
 					<!-- Logo -->
 					<div class="col-lg-2 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="home.jsp">OneTech</a></div>
 						</div>
 					</div>
 
@@ -180,7 +180,7 @@
 											<li><a href="#">Garena<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
-									<li><a href="product.jsp">Product<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="CategoryServlet">Product<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="blog.html">Forum<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
 								</ul>

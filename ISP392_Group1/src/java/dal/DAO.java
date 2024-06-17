@@ -22,7 +22,7 @@ public class DAO extends DBContext {
 
     // tao tai khoan
     public void add(Account a) {
-        String sql = "insert into [dbo].[ACCOUNT] (username, email, password, auth_method, role) values(?,?,?,?,?)";
+        String sql = "insert into account (username, email, password, auth_method, role) values(?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, a.getUsername());
@@ -36,7 +36,7 @@ public class DAO extends DBContext {
     }
 
     public void update(Account a) {
-        String sql = "UPDATE [dbo].[Account] set [username] = ? ,[password] = ? where [email] = ? ";
+        String sql = "UPDATE account set username= ? ,password = ? where email= ? ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, a.getUsername());
@@ -50,7 +50,7 @@ public class DAO extends DBContext {
     }
 
     public boolean checkUser(String username) {
-        String sql = "select * from [dbo].[ACCOUNT] where username=?";
+        String sql = "select * from account where username=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -65,7 +65,7 @@ public class DAO extends DBContext {
     }
 
     public boolean checkUserEmail(String email) {
-        String sql = "select * from [dbo].[Account] where email= ? and auth_method = 'google' ";
+        String sql = "select * from account where email= ? and auth_method = 'google' ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
@@ -311,7 +311,7 @@ public class DAO extends DBContext {
     }
 
     public boolean updatePassword(String email, String newPassword) {
-        String sql = "update [dbo].[Account] set password = ? where email=?";
+        String sql = "update account set password = ? where email=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, newPassword);
@@ -325,7 +325,7 @@ public class DAO extends DBContext {
     }
 
     public boolean checkEmail(String email) {
-        String sql = "select * from [dbo].[ACCOUNT] where email=?";
+        String sql = "select * from account where email=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
@@ -411,8 +411,8 @@ public class DAO extends DBContext {
 
         return 0;
     }
-    
-        public int countAllProductOfCategory(String cid) {
+
+    public int countAllProductOfCategory(String cid) {
         String sql = "select count(*) from PRODUCT where categoryID =?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -426,7 +426,7 @@ public class DAO extends DBContext {
 
         return 0;
     }
-    
+
     public List<Product> getTop12() {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM PRODUCT LIMIT 12;";
@@ -476,7 +476,7 @@ public class DAO extends DBContext {
         return list;
     }
 
-        public List<Product> getProductsByCid(String cid) {
+    public List<Product> getProductsByCid(String cid) {
         List<Product> list = new ArrayList<>();
         String sql = "select * from PRODUCT where categoryID = ?";
         try {
@@ -499,5 +499,96 @@ public class DAO extends DBContext {
 
         }
         return list;
+    }
+
+    public String getPasswordByUserId(String id) {
+        String password = null;
+        try {
+            String strSQL = "SELECT password FROM account WHERE id = ?";
+            stm = cnn.prepareStatement(strSQL);
+            stm.setString(1, id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                password = rs.getString("password");
+            }
+        } catch (SQLException e) {
+            System.out.println("getPasswordByUserId: " + e.getMessage());
+
+        }
+        return password;
+    }
+
+    public int getIdByUsername(String username) {
+        int id = 0;
+        try {
+            String strSQL = "SELECT id FROM account WHERE username = ?";
+            stm = cnn.prepareStatement(strSQL);
+            stm.setString(1, username);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("getIdByUsername: " + e.getMessage());
+        }
+        return id;
+    }
+
+    public String getStatusByUserId(int id) {
+        String status = null;
+        try {
+            String strSQL = "SELECT status FROM account WHERE id = ?";
+            stm = cnn.prepareStatement(strSQL);
+            stm.setInt(1, id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                status = rs.getString("status");
+            }
+        } catch (SQLException e) {
+            System.out.println("getStatusByUserId: " + e.getMessage());
+        }
+        return status;
+    }
+
+    public String getRoleByUserId(int id) {
+        String role = null;
+        try {
+            String strSQL = "SELECT role FROM account WHERE id = ?";
+            stm = cnn.prepareStatement(strSQL);
+            stm.setInt(1, id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                role = rs.getString("role");
+            }
+        } catch (SQLException e) {
+            System.out.println("getStatusByUserId: " + e.getMessage());
+        }
+        return role;
+    }
+
+    public boolean updateAccountStatus(String userId, String status) {
+        String query = "UPDATE account SET status = ?,updated_at = CURRENT_TIMESTAMP WHERE ID = ?";
+
+        try (PreparedStatement statement = cnn.prepareStatement(query)) {
+            statement.setString(1, status);
+            statement.setString(2, userId);
+
+            int rowsAffected = statement.executeUpdate();
+
+            return rowsAffected > 0; // Returns true if at least one row was updated
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // Optionally, log more details or handle specific cases
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("Error Code: " + ex.getErrorCode());
+            System.out.println("Message: " + ex.getMessage());
+            Throwable t = ex.getCause();
+            while (t != null) {
+                System.out.println("Cause: " + t);
+                t = t.getCause();
+            }
+        }
+
+        return false;
     }
 }
