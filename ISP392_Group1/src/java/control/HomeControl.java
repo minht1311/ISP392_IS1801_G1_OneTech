@@ -56,6 +56,7 @@ public class HomeControl extends HttpServlet {
         List<Product> listSearch = dao.searchByName(txtSearch);
         List<Product> listP4 = dao.getRandom16();
         List<Product> listTop3 = dao.getProductByIndex(4,3);
+        List<Product> listTop10 = dao.getTop10();
         Product p = dao.getProductByID("vcoin100");
         
         List<Categories> listC = dao.getCategory();
@@ -68,6 +69,7 @@ public class HomeControl extends HttpServlet {
         request.setAttribute("product", p);
         request.setAttribute("listTop3", listTop3);
         request.setAttribute("listC", listC);
+        request.setAttribute("listTop10", listTop10);
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 

@@ -662,6 +662,30 @@ public class DAO extends DBContext {
         }
         return null;
     }
+        
+        public List<Product> getTop10() {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM project1.PRODUCT WHERE discount > 0 ORDER BY discount desc LIMIT 10;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Categories c = getCategoryById(rs.getInt("categoryID"));
+                Product p = new Product(rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getString("image"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("discount"),
+                        c);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
 
 
     public List<Product> getAllProducts() {
@@ -1010,14 +1034,14 @@ public class DAO extends DBContext {
     
     public static void main(String[] args) {
         DAO dao = new DAO();
-        List<Product> listP = dao.getSimilarPrice("shopee100");
+        List<Product> listP = dao.getTop10();
         List<Product> listP2 = dao.getSimilarCategory("shopee100");
         List<Categories> listC = dao.getCategory();
         for (Product o : listP) {
             System.out.println(o);
         }
         for (Product o : listP2) {
-            System.out.println(o);
+            //System.out.println(o);
         }
         //Categories catID = dao.getCategoryById(1);
         //System.out.println(catID);

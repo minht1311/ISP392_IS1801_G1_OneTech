@@ -225,7 +225,7 @@
 
 								</div>
                                                             
-								<div class="banner_price" style="font-size: 25px;">${product.getPercentDiscount()} VND <span> ${product.getFormattedPrice()} VND </span></div>
+								<div class="banner_price" style="font-size: 25px;">${product.getPercentDiscount()} VND <span> ${product.getFormattedPrice8()} VND </span></div>
 								<div class="button_container">
 									<button type="button" class="button cart_button">Add to Cart</button>
 									
