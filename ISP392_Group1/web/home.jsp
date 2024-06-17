@@ -332,8 +332,13 @@
                                                             <c:forEach items="${listTop3}" var="o">
 								<!-- Deals Item -->
 								<div class="owl-item deals_item">
-                                                                    <div class="deals_image"> <a href="detail?id=${o.id}"><img src="${o.image}" alt=""></a></div>
+                                    <div class="deals_image"> <a href="detail?id=${o.id}"><img src="${o.image}" alt=""></a></div>
 									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											
+											<div class="deals_item_price_a ml-auto">${o.getFormattedPrice()} VND</div>
+										</div>
+
 										<div class="deals_info_line d-flex flex-row justify-content-start">
 											<div class="deals_item_name"><a href="detail?id=${o.id}">${o.name}</a></div>
 											<div class="deals_item_price ml-auto">${o.getPercentDiscount()} VND</div>
@@ -408,7 +413,7 @@
 										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                                                                     <div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="detail?id=${o.id}"><img src="${o.image}" height="85" width="auto" style="vertical-align:middle" alt=""></a></div>
 											<div class="product_content">
-                                                                                            <div class="product_price"><a href="detail?id=${o.id}">${o.getPercentDiscount()} VND</a></div>
+                                                <div class="product_price"><a href="detail?id=${o.id}">${o.getPercentDiscount()} VND</a></div>
 												<div class="product_name"><div><a href="detail?id=${o.id}">${o.name}</a></div></div>
 												<div class="product_extras">
 
@@ -456,7 +461,7 @@
 										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
 											<div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="detail?id=${o.id}"><img src="${o.image}" height="85" width="auto" style="vertical-align:middle" alt=""></a></div>
 											<div class="product_content">
-                                                                                        <div class="product_price"><a href="detail?id=${o.id}">${o.getPercentDiscount()} VND</a></div>
+                                                <div class="product_price"><a href="detail?id=${o.id}">${o.getPercentDiscount()} VND</a></div>
 												<div class="product_name"><div><a href="detail?id=${o.id}">${o.name}</a></div></div>
 												<div class="product_extras">
 

@@ -1010,9 +1010,13 @@ public class DAO extends DBContext {
     
     public static void main(String[] args) {
         DAO dao = new DAO();
-        List<Product> listP = dao.searchByName("shopee");
+        List<Product> listP = dao.getSimilarPrice("shopee100");
+        List<Product> listP2 = dao.getSimilarCategory("shopee100");
         List<Categories> listC = dao.getCategory();
         for (Product o : listP) {
+            System.out.println(o);
+        }
+        for (Product o : listP2) {
             System.out.println(o);
         }
         //Categories catID = dao.getCategoryById(1);
