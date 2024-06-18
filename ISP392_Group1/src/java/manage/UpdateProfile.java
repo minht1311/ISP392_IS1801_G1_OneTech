@@ -60,7 +60,7 @@ public class UpdateProfile extends HttpServlet {
         ProfileDAO pDAO = new ProfileDAO();
         Account acc = (Account) session.getAttribute("acc");
         if (acc == null) {
-            response.sendRedirect("LoginServlet");
+            response.sendRedirect("login.jsp");
         } else {
             Profile newProfile = new Profile();
             userId = dao.getIdByUsername(acc.username);

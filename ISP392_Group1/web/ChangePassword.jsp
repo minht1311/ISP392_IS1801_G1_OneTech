@@ -117,8 +117,8 @@ session.setAttribute(captchaId, captchaString);
 
                     <div class="header-right">
                         <ul class="clearfix">
-                                                       
-                      
+
+
                             <li class="icons dropdown">
                                 <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                     <span class="activity active"></span>
@@ -127,7 +127,7 @@ session.setAttribute(captchaId, captchaString);
                                 <div class="drop-down dropdown-profile   dropdown-menu">
                                     <div class="dropdown-content-body">
                                         <ul>
-                                           
+
                                             <li><a href="logout"><i class="icon-key"></i> <span>Logout</span></a></li>
                                         </ul>
                                     </div>
@@ -201,7 +201,7 @@ session.setAttribute(captchaId, captchaString);
 
                                 <div class="card-body">
                                     <div class="form-validation">
-                                        <form class="form-valide" action="ChangePassword" method="post" id="profile-form" onsubmit="return validateForm(event)">
+                                        <form class="form-valide" action="ChangePassword" method="post" id="profile-form">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="username">Account <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
@@ -243,6 +243,12 @@ session.setAttribute(captchaId, captchaString);
                                             </c:if>
                                             <c:if test="${not empty successMessage}">
                                                 <div style="text-align: center; color: green" class="error-message">${successMessage}</div>
+                                                <script>
+                                                    document.getElementById("oldPassword").value = "";
+                                                    document.getElementById("newPassword").value = "";
+                                                    document.getElementById("retypPassword").value = "";
+                                                    document.getElementById("captcha").value = "";
+                                                </script>
                                             </c:if>
                                             <div class="form-group row">
                                                 <div class="col-lg-8 ml-auto">
@@ -253,8 +259,17 @@ session.setAttribute(captchaId, captchaString);
                                         </form>
 
 
+
                                         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                                         <script>
+                                                    window.onload = function () {
+                                                        var formStatus = document.getElementById('formStatus').value;
+                                                        if (formStatus === 'success') {
+                                                            document.getElementById('oldPassword').value = '';
+                                                            document.getElementById('newPassword').value = '';
+                                                            document.getElementById('retypPassword').value = '';
+                                                            document.getElementById('captcha').value = '';
+                                                        }
                                                         async function validateForm(event) {
                                                             event.preventDefault(); // Prevent form from submitting
 
@@ -362,28 +377,28 @@ session.setAttribute(captchaId, captchaString);
                                                             };
         </script>
         <script type="text/javascript">
-                function generateNewCaptcha() {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("GET", "CaptchaGenerator?new=true", true);
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            document.getElementById("captchaImage").src = "CaptchaGenerator?captchaId=" + response.captchaId;
-                            document.getElementById("captcha_id").value = response.captchaId;
-                        }
-                    };
-                    xhr.send();
-                }
-
-                // Detect when the page is loaded via the browser's back button
-                window.addEventListener("pageshow", function (event) {
-                    if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-                        // The page is loaded from the back/forward cache
-                        document.getElementById("captcha-field").value = "";
-                        generateNewCaptcha();
+                    function generateNewCaptcha() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", "CaptchaGenerator?new=true", true);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                var response = JSON.parse(xhr.responseText);
+                                document.getElementById("captchaImage").src = "CaptchaGenerator?captchaId=" + response.captchaId;
+                                document.getElementById("captcha_id").value = response.captchaId;
+                            }
+                        };
+                        xhr.send();
                     }
-                }
-                );
+
+                    // Detect when the page is loaded via the browser's back button
+                    window.addEventListener("pageshow", function (event) {
+                        if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+                            // The page is loaded from the back/forward cache
+                            document.getElementById("captcha-field").value = "";
+                            generateNewCaptcha();
+                        }
+                    }
+                    );
         </script>
     </body>
 
