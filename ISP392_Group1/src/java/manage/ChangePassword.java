@@ -97,16 +97,11 @@ public class ChangePassword extends HttpServlet {
         String captcha = request.getParameter("captcha");
         String captchaId = request.getParameter("captcha_id");
         String sessionCaptcha = (String) request.getSession().getAttribute(captchaId);
-        System.out.println("captcha when update" + captcha);
-        System.out.println("captcha Id when update" + captchaId);
-        System.out.println("session captcha when update" + sessionCaptcha);
 
-//        String oldPassword = dao.getPasswordByUserId(String.valueOf(userId));
-//        System.out.println("oldPassword" + oldPassword);
         String oldPassword = request.getParameter("oldPassword");
         String s = EncryptionPassword.toSHA1(oldPassword);
         String passwordByUserId = dao.getPasswordByUserId(String.valueOf(userId));
-        System.out.println("passwordByUserId" + passwordByUserId);
+
         if (newPassword.isEmpty() || oldPassword.isEmpty() || retyPassword.isEmpty() || captcha.isEmpty()) {
             request.setAttribute("errorMessage", "Missing required parameter!");
             request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
@@ -116,33 +111,22 @@ public class ChangePassword extends HttpServlet {
             request.setAttribute("newPassword", newPassword);
             request.setAttribute("retyPassword", retyPassword);
             request.setAttribute("oldPassword", oldPassword);
-
             request.setAttribute("errorMessage", "Wrong account information");
             request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
             return;
         } else {
-
-            System.out.println("newPassword" + newPassword);
-
-            System.out.println("retyPassword" + retyPassword);
             if (newPassword.length() < 8) {
                 request.setAttribute("errorMessage", "Password is too short. At least 8 characters");
                 request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
-
             } else if (!newPassword.equals(retyPassword)) {
                 request.setAttribute("errorMessage", "Re-type password not match");
                 request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
-
             } else if (newPassword.equals(oldPassword)) {
-                request.setAttribute("errorMessage", "New password must not the same with old password");
+                request.setAttribute("errorMessage", "New password must not be the same as the old password");
                 request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
-
             } else {
-                System.out.println("Changing password for userId: " + userId);
                 ProfileDAO fDao = new ProfileDAO();
                 boolean passwordUpdated = fDao.updateAccountPassword(EncryptionPassword.toSHA1(newPassword), username);
-
-                System.out.println("Password updated: " + passwordUpdated);
                 if (sessionCaptcha != null && sessionCaptcha.equals(captcha)) {
                     if (passwordUpdated) {
                         request.setAttribute("successMessage", "Your work has been saved");
@@ -155,18 +139,12 @@ public class ChangePassword extends HttpServlet {
                     request.setAttribute("errorMessage", "Invalid CAPTCHA");
                     request.getSession().removeAttribute(captchaId);
                 }
-
                 ProfileDAO pDAO = new ProfileDAO();
-
                 Profile profile = pDAO.getProfileByUserId(userId);
-
                 session.setAttribute("profile", profile);
-
                 request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
-
             }
         }
-
     }
 
     public static void main(String[] args) {

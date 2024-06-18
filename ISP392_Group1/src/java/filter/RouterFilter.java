@@ -133,12 +133,22 @@ public class RouterFilter implements Filter {
                     return; // Stop further processing after redirect
                 }
             }
+            if (acc != null && acc.username.equals("admin")
+                    && (url.endsWith("UpdateProfile") || url.endsWith("ChangePassword"))) {
+                httpResponse.sendRedirect("home.jsp");
+                return;
+            }
+             if (acc != null && !acc.username.equals("admin")
+                    && (url.contains("ManageAccount"))) {
+                httpResponse.sendRedirect("home.jsp");
+                return;
+            }
 
-            if (url.endsWith("admindashboard.jsp")  && !url.contains("error.jsp")) {
+            if (url.endsWith("admindashboard.jsp") && !url.contains("error.jsp")) {
                 httpResponse.sendRedirect("home.jsp");
                 return; // Stop further processing after redirect
             }
-            if (url.endsWith("AccountList.jsp")  && !url.contains("error.jsp")) {
+            if (url.endsWith("AccountList.jsp") && !url.contains("error.jsp")) {
                 httpResponse.sendRedirect("home.jsp");
                 return; // Stop further processing after redirect
             }
