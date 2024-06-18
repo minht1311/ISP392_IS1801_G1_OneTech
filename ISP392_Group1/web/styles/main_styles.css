@@ -1011,6 +1011,8 @@ select option
 	padding-right: 15px;
 	margin-right: 0px;
 }
+
+
 .menu_trigger_container
 {
 	display: none;
@@ -1377,13 +1379,13 @@ select option
 }
 .deals_item_name
 {
-	font-size: 24px;
+	font-size: 22px;
 	font-weight: 400;
 	color: #000000;
 }
 .deals_item_price
 {
-	font-size: 24px;
+	font-size: 22px;
 	font-weight: 500;
 	color: #df3b3b;
 }
@@ -1446,7 +1448,7 @@ select option
 }
 .deals_timer_content
 {
-	padding-bottom: 17px;
+	padding-bottom: 20px;
 }
 .deals_timer_box
 {
@@ -1615,8 +1617,8 @@ select option
 .product_panel
 {
 	display: none;
-	margin-left: -60px;
-	margin-right: -60px;
+	margin-left: -50px !important; 
+	margin-right: -50px !important;
 }
 .product_panel.active
 {
@@ -1751,6 +1753,17 @@ select option
 	visibility: visible;
 	opacity: 1;
 }
+
+.featured_slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+.featured_slider_item {
+    flex: 0 0 auto;
+    margin-right: 15px; /* Adjust spacing between items as needed */
+}
+
 .product_color input
 {
 	-webkit-appearance: none;
