@@ -153,7 +153,7 @@ session.setAttribute(captchaId, captchaString);
                                 <i class="icon-note menu-icon"></i><span class="nav-text">Forms</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="./UserProfile.jsp">Update Profile</a></li>
+                                <li><a href="./UpdateProfile">Update Profile</a></li>
 
                             </ul>
                         </li>
