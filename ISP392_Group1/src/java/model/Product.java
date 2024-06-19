@@ -6,23 +6,35 @@ package model;
 
 /**
  *
- * @author KimHo
+ * @author MTTRBLX
  */
 public class Product {
-
-    private String id, name;
+    private String id;
+    private String name;
+    private int categoryID;
     private double price;
     private String image;
     private int quantity;
     private String description;
-    private int discount;
-    private String status;
+    private double discount;
     private Categories category;
-
+    private String status;
+    
     public Product() {
     }
 
-    public Product(String id, String name, double price, String image, int quantity, String description, int discount, Categories category) {
+    public Product(String id, String name, int categoryID, double price, String image, int quantity, String description, double discount) {
+        this.id = id;
+        this.name = name;
+        this.categoryID = categoryID;
+        this.price = price;
+        this.image = image;
+        this.quantity = quantity;
+        this.description = description;
+        this.discount = discount;
+    }
+    
+    public Product(String id, String name, double price, String image, int quantity, String description, double discount, Categories category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -32,8 +44,8 @@ public class Product {
         this.discount = discount;
         this.category = category;
     }
-
-    public Product(String id, String name, double price, String image, int quantity, String description, int discount, String status, Categories category) {
+    
+    public Product(String id, String name, double price, String image, int quantity, String description, double discount, String status, Categories category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -43,7 +55,16 @@ public class Product {
         this.discount = discount;
         this.status = status;
         this.category = category;
+        
     }
+
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", name=" + name + ", categoryID=" + categoryID + ", price=" + price + ", image=" + image + ", quantity=" + quantity + ", description=" + description + ", discount=" + discount + '}';
+    }
+    
+    
 
     public String getId() {
         return id;
@@ -61,16 +82,32 @@ public class Product {
         this.name = name;
     }
 
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
     public double getPrice() {
         return price;
+    }
+    
+    public String getFormattedPrice() {
+        return String.format("%.0f", price);
+    }
+    
+    public String getFormattedDiscount() {
+        return String.format("%.0f", discount);
+    }
+    
+    public String getPercentDiscount() {
+        return String.format("%.0f",price - price * (discount/100));
     }
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getFormattedPrice() {
-        return String.format("%.0f", price);
     }
 
     public String getImage() {
@@ -97,20 +134,12 @@ public class Product {
         this.description = description;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Categories getCategory() {
@@ -121,4 +150,13 @@ public class Product {
         this.category = category;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
 }

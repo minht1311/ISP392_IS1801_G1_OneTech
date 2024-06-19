@@ -26,6 +26,10 @@ public class Categories {
         this.name = name;
     }
 
+    public Categories(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,6 +52,11 @@ public class Categories {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Categories{" + "id=" + id + ", name=" + name + ", status=" + status + '}';
     }
     
     

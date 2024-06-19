@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Enumeration;
 import model.Account;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
@@ -96,7 +97,6 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO u = new DAO();
-
         String username = request.getParameter("code");
         String accessToken = getToken(username);
         UserGoogleDto user = getUserInfo(accessToken);
@@ -134,39 +134,57 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String role = null;
+        String status = null;
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String captcha = request.getParameter("captcha");
+        System.out.println("captcha" + captcha);
         String captchaId = request.getParameter("captcha_id");
+        System.out.println("captchaId" + captchaId);
         String sessionCaptcha = (String) request.getSession().getAttribute(captchaId);
+        System.out.println("session captcha" + sessionCaptcha);
         request.setAttribute("username", username);
         request.setAttribute("password", password);
         HttpSession session = request.getSession();
         session.setAttribute("user", username);
         DAO u = new DAO();
+        System.out.println("request.getSession(true)" + request.getSession(true));
         Account acc = u.checkAuthen(username, EncryptionPassword.toSHA1(password));
-        session.setAttribute("acc", acc);
+        Enumeration<String> attributeNames = session.getAttributeNames();
+        while (attributeNames.hasMoreElements()) {
+            String attributeName = attributeNames.nextElement();
+            Object attributeValue = session.getAttribute(attributeName);
+            System.out.println("Attribute Name: " + attributeName + ", Attribute Value: " + attributeValue);
+        }
 
-        boolean check = u.checkUser1(username, EncryptionPassword.toSHA1(password));
+//        System.out.println("acc.username" + acc.username);
+        if (acc != null) {
+            session.setAttribute("acc", acc);
+            int userId = u.getIdByUsername(acc.username);
+            role = u.getRoleByUserId(userId);
+            status = u.getStatusByUserId(userId);
+            session.setAttribute("role", role);
+            boolean check = u.checkUser1(username, EncryptionPassword.toSHA1(password));
+        }
 
         if (acc != null) {
             if (sessionCaptcha != null && sessionCaptcha.equals(captcha)) {
+                if (status.equalsIgnoreCase("inactive")) {
+                    request.setAttribute("errorMessage", "Your account has been banned");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                    return;
+                }
                 // Replace this with your actual authentication logic
                 request.setAttribute("username", username);
                 request.setAttribute("auth_method", "userAndPassWord");
-                boolean isAdmin = acc.getUsername().equalsIgnoreCase("admin");  // Check if the user is an admin
-                if (isAdmin) {
-                    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
-                    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-                    response.setDateHeader("Expires", 0); // Proxies
+                // Check if the user is an admin
+                if (role.equalsIgnoreCase("admin")) {
 
-                    response.sendRedirect("admindashboard.jsp");  // Redirect to admin home page
+                    response.sendRedirect("home.jsp");
                 } else {
-                    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
-                    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-                    response.setDateHeader("Expires", 0); // Proxies
 
-                    response.sendRedirect("home.jsp");  // Redirect to user home page
+                    response.sendRedirect("home.jsp");
                 }
             } else {
                 request.setAttribute("errorMessage", "Invalid CAPTCHA");

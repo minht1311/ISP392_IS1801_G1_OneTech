@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
+        <group>
+            <file>file:/D:/Code/ISP392_IS1804_G1/ISP392_IS1804_G1/ISP392_Group1/web/manageproduct.jsp</file>
+            <file>file:/D:/Code/ISP392_IS1804_G1/ISP392_IS1804_G1/ISP392_Group1/src/java/dal/DAO.java</file>
+            <file>file:/D:/Code/ISP392_IS1804_G1/ISP392_IS1804_G1/ISP392_Group1/src/java/model/Product.java</file>
+            <file>file:/D:/Code/ISP392_IS1804_G1/ISP392_IS1804_G1/ISP392_Group1/src/java/manageproduct/UpdateProduct.java</file>
+            <file>file:/D:/Code/ISP392_IS1804_G1/ISP392_IS1804_G1/ISP392_Group1/src/java/manageproduct/ManageServlet.java</file>
+        </group>
+>>>>>>> parent of 1367cd6 (fix shop)
+    </open-files>
+</project-private>
