@@ -158,7 +158,7 @@
                                     <li><a href="ManageAccount" aria-expanded="false">Account</a></li>
                                     </c:if>
 
-                                <li><a href="ChangePassword.jsp" aria-expanded="false">Change Password</a></li>
+                                <li><a href="ChangePassword" aria-expanded="false">Change Password</a></li>
 
                             </ul>
                         </li>

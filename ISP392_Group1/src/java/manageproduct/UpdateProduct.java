@@ -85,25 +85,21 @@ public class UpdateProduct extends HttpServlet {
         int quantity;
         double price;
         int cid;
-        int discount;
+        double discount;
         DAO d = new DAO();
         String image;
         try {
             quantity = Integer.parseInt(quantity_raw);
             price = Double.parseDouble(price_raw);
-            discount = Integer.parseInt(discount_raw);
+            discount = Double.parseDouble(discount_raw);
             cid = Integer.parseInt(cid_raw);
             image = "images/card/" + image_raw;
             Product p = d.getProductsById(id);
-            if (p != null) {
-                request.setAttribute("check", "id " + id + " existed!");
-                request.getRequestDispatcher("manage").forward(request, response);
-            } else {
-                p = new Product(id, name, price, image, quantity, desc, discount, new Categories(cid));
-                d.updateP(p);
-                request.setAttribute("check", "id " + id + " update successfully");
-                response.sendRedirect("manage");
-            }
+            p = new Product(id, name, price, image, quantity, desc, discount, new Categories(cid));
+            d.updateP(p);
+            request.setAttribute("check", "id " + id + " update successfully");
+            response.sendRedirect("manage");
+
         } catch (NumberFormatException e) {
             System.out.println(e);
             request.setAttribute("check1", "Error updating product: Invalid input format");

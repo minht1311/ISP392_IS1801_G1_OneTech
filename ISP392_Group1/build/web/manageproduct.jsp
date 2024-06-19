@@ -42,17 +42,17 @@
             <!--**********************************
                 Nav header start
             ***********************************-->
-<!--            <div class="nav-header">
-                <div class="brand-logo">
-                    <a href="index.html">
-                        <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-                        <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
-                        <span class="brand-title">
-                            <img src="images/logo-text.png" alt="">
-                        </span>
-                    </a>
-                </div>
-            </div>-->
+            <!--            <div class="nav-header">
+                            <div class="brand-logo">
+                                <a href="index.html">
+                                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                                    <span class="brand-title">
+                                        <img src="images/logo-text.png" alt="">
+                                    </span>
+                                </a>
+                            </div>
+                        </div>-->
             <!--**********************************
                 Nav header end
             ***********************************-->
@@ -436,18 +436,26 @@
                         var searchQuery = document.getElementById("search").value;
                         window.location.href = "manage?id=" + selectedCategory + "&search=" + searchQuery;
                     }
-
-                    function showProductDetails(productId) {
-                        var selectedCategory = document.getElementById("cat").value;
-                        window.location.href = "manage?id=" + selectedCategory + "&productId=" + productId;
+                    function populateDetailModal(id, name, category, price, quantity, description, discount, image) {
+                        $('#detail-product-id').val(id);
+                        $('#detail-product-name').val(name);
+                        $('#detail-product-category').val(category);
+                        $('#detail-product-price').val(price);
+                        $('#detail-product-quantity').val(quantity);
+                        $('#detail-product-description').val(description);
+                        $('#detail-product-discount').val(discount);
+                        $('#detail-product-image').val(image);
                     }
-
                     $(document).ready(function () {
                         var urlParams = new URLSearchParams(window.location.search);
                         if (urlParams.has('productId')) {
-                            $('#productModalDetail').modal('show');
+                            $('#productModalUpdate').modal('show');
                         }
                     });
+                    function editProductDetails(productId) {
+                        var selectedCategory = document.getElementById("cat").value;
+                        window.location.href = "manage?id=" + selectedCategory + "&productId=" + productId;
+                    }
                     function closeModal() {
                         var selectedCategory = document.getElementById("cat").value;
                         window.location.href = "manage?id=" + selectedCategory;
@@ -456,16 +464,7 @@
                     function openAddProductModal1() {
                         $('#productModal1').modal('show');
                     }
-                    function editProductDetails(productId) {
-                        var selectedCategory = document.getElementById("cat").value;
-                        window.location.href = "manage?id=" + selectedCategory + "&productId=" + productId;
-                    }
-                    $(document).ready(function () {
-                        var urlParams = new URLSearchParams(window.location.search);
-                        if (urlParams.has('productId')) {
-                            $('#productModalUpdate').modal('show');
-                        }
-                    });
+
                 </script>
                 </head>
                 <body>
@@ -580,9 +579,16 @@
                                                             <td>${p.category.name}</td>
                                                             <td>${p.quantity}</td>
                                                             <td>
-                                                                <a onclick="showProductDetails('${p.id}')" title="View"><i class="fas fa-eye manage-icon" style="margin-right: 10px; color: black"></i></a>
+                                                                <!-- View Product Details -->
+                                                                <a href="#" data-toggle="modal" data-target="#productModalDetail" onclick="populateDetailModal('${p.id}', '${p.name}', '${p.category.name}', '${p.price}', '${p.quantity}', '${p.description}', '${p.discount}', '${p.image}')"
+                                                                   title="View"><i class="fas fa-eye manage-icon" style="margin-right: 10px; color: black"></i></a>
+
+                                                                <!-- Edit Product Details -->
                                                                 <a onclick="editProductDetails('${p.id}')" title="Edit"><i class="fas fa-edit manage-icon" style="margin-right: 10px; color: blue"></i></a>
-                                                                <a  title="Archive" onclick="return confirm('Are you sure you want to archive this item?');"><i class="fas fa-archive manage-icon" style="color: red"></i></a>
+
+                                                                <!-- Archive Product -->
+                                                                <a href="archive?id=${p.id}" title="Archive" onclick="return confirm('Are you sure you want to archive this item?');"><i class="fas fa-archive manage-icon" style="color: red"></i></a>
+                                                            </td>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
@@ -591,58 +597,60 @@
 
                                             <!-- Bootstrap Modal -->
 
-                                            <div class="modal fade show" id="productModalDetail" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="productModalDetail" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
+                                                        <!-- Modal content for detail -->
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="productModalLabel">${product.name}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href = 'manage'">
+                                                            <h5 class="modal-title" id="productModalLabel">Product Detail</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                                                        <div class="modal-body">
                                                             <form>
                                                                 <div class="form-group">
-                                                                    <label for="product-id" class="col-form-label">ID:</label>
-                                                                    <input type="text" class="form-control" id="product-id" value="${product.id}" readonly>
+                                                                    <label for="detail-product-id" class="col-form-label">ID:</label>
+                                                                    <input type="text" class="form-control" id="detail-product-id" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="product-name" class="col-form-label">Name:</label>
-                                                                    <input type="text" class="form-control" id="product-name" value="${product.name}" readonly>
+                                                                    <label for="detail-product-name" class="col-form-label">Name:</label>
+                                                                    <input type="text" class="form-control" id="detail-product-name" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="product-category" class="col-form-label">Category:</label>
-                                                                    <input type="text" class="form-control" id="product-category" value="${product.category.name}" readonly>
+                                                                    <label for="detail-product-category" class="col-form-label">Category:</label>
+                                                                    <input type="text" class="form-control" id="detail-product-category" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="product-price" class="col-form-label">Price:</label>
-                                                                    <input type="text" class="form-control" id="product-price" value="${product.price} VND" readonly>
+                                                                    <label for="detail-product-price" class="col-form-label">Price:</label>
+                                                                    <input type="text" class="form-control" id="detail-product-price" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="product-quantity" class="col-form-label">Quantity:</label>
-                                                                    <input type="text" class="form-control" id="product-quantity" value="${product.quantity}" readonly>
+                                                                    <label for="detail-product-quantity" class="col-form-label">Quantity:</label>
+                                                                    <input type="text" class="form-control" id="detail-product-quantity" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="product-description" class="col-form-label">Description:</label>
-                                                                    <textarea class="form-control" id="product-description" readonly>${product.description}</textarea>
+                                                                    <label for="detail-product-description" class="col-form-label">Description:</label>
+                                                                    <textarea class="form-control" id="detail-product-description" readonly></textarea>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="product-discount" class="col-form-label">Discount:</label>
-                                                                    <input type="text" class="form-control" id="product-discount" value="${product.discount}" readonly>
+                                                                    <label for="detail-product-discount" class="col-form-label">Discount:</label>
+                                                                    <input type="text" class="form-control" id="detail-product-discount" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="product-status" class="col-form-label">Image:</label>
-                                                                    <input type="text" class="form-control" id="product-status" value="${product.image}" readonly>
+                                                                    <label for="detail-product-image" class="col-form-label">Image:</label>
+                                                                    <input type="text" class="form-control" id="detail-product-image" readonly>
                                                                 </div>
                                                             </form>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--update-->
+
+                                            <!-- Bootstrap Modal for Update -->
                                             <form action="updateProduct" method="POST">
                                                 <div class="modal fade" id="productModalUpdate" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg" role="document">
@@ -701,6 +709,7 @@
                                                     </div>
                                                 </div>
                                             </form>
+
                                         </div>
 
                                     </div>

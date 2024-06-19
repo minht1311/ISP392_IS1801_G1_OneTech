@@ -34,7 +34,7 @@ public class Product {
         this.discount = discount;
     }
     
-    public Product(String id, String name, double price, String image, int quantity, String description, int discount, Categories category) {
+    public Product(String id, String name, double price, String image, int quantity, String description, double discount, Categories category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -45,7 +45,7 @@ public class Product {
         this.category = category;
     }
     
-    public Product(String id, String name, double price, String image, int quantity, String description, int discount, String status, Categories category) {
+    public Product(String id, String name, double price, String image, int quantity, String description, double discount, String status, Categories category) {
         this.id = id;
         this.name = name;
         this.price = price;

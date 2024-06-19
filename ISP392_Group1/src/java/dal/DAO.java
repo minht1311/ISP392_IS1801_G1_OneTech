@@ -351,8 +351,8 @@ public class DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Categories c = getCategoryById(rs.getInt("categoryID"));
-                Product p = new Product(rs.getString("id"), rs.getString("name"), rs.getInt("price"), rs.getString("image"),
-                        rs.getInt("quantity"), rs.getString("description"), rs.getInt("discount"), rs.getString("status"), c);
+                Product p = new Product(rs.getString("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("image"),
+                        rs.getInt("quantity"), rs.getString("description"), rs.getDouble("discount"), c);
 
                 return p;
             }
