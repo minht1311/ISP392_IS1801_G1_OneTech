@@ -235,7 +235,7 @@
                                 <!-- Logo -->
                                 <div class="col-lg-2 col-sm-3 col-3 order-1">
                                     <div class="logo_container">
-                                        <div class="logo"><a href="home">OneTech</a></div>
+                                        <div class="logo"><a href="#">OneTech</a></div>
                                     </div>
                                 </div>
 
@@ -282,7 +282,7 @@
                                     <div class="main_nav_content d-flex flex-row">
                                         <div class="main_nav_menu m2-auto" style="margin-left: 300px">
                                             <ul class="standard_dropdown main_nav_dropdown">
-                                                <li><a href="home">Home<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="home.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
                                                 <li class="hassubs">
                                                     <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
                                                     <ul>
@@ -389,6 +389,42 @@
                                         </c:forEach>
                                     </div>
                                 </div>
+                                <!-- Pagination -->
+                                <!--                                <div class="shop_page_nav d-flex flex-row">
+                                                                    <div id="page_prev" class="page_prev d-flex flex-column align-items-center justify-content-center">
+                                <c:choose>
+                                    <c:when test="${page > 1}">
+                                        <a href="shop?index=${page-1}&cid=${currentCid}&sort_by=${currentSort}">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" class="disabled">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <ul class="page_nav d-flex flex-row">
+                                <c:forEach begin="1" end="${endPage}" var="i">
+                                    <li class="page-item"> <a class="sidebar_title2 ${page == i ? "active":""}" href="shop?index=${i}&cid=${currentCid}&sort_by=${currentSort}">${i}</a></li>
+                                </c:forEach>
+                        </ul>
+                        <div id="page_next" class="page_next d-flex flex-column align-items-center justify-content-center">
+                                <c:choose>
+                                    <c:when test="${page < endPage}">
+                                        <a href="shop?index=${page+1}&cid=${currentCid}&sort_by=${currentSort}">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" class="disabled">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>-->
                                 <div class="row justify-content-center mt-3">
                                     <div class="col-auto">
                                         <button class="btn btn-primary" onclick="goToPreviousPage()">Previous</button>

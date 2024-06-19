@@ -48,7 +48,7 @@
 				<!-- Logo -->
 				<div class="col-lg-2 col-sm-3 col-3 order-1">
 					<div class="logo_container">
-						<div class="logo"style="top: 50%"><a href="home">OneTech</a></div>
+						<div class="logo"style="top: 50%"><a href="#">OneTech</a></div>
 					</div>
 				</div>
 
@@ -151,7 +151,7 @@
 
 						<div class="main_nav_menu ml-auto">
 							<ul class="standard_dropdown main_nav_dropdown">
-								<li><a href="home">Home<i class="fas fa-chevron-down"></i></a></li>
+								<li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
 								<li class="hassubs">
 									<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
 									<ul>
