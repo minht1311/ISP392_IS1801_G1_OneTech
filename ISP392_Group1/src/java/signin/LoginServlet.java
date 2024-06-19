@@ -181,10 +181,10 @@ public class LoginServlet extends HttpServlet {
                 // Check if the user is an admin
                 if (role.equalsIgnoreCase("admin")) {
 
-                    response.sendRedirect("home.jsp");
+                    response.sendRedirect("home");
                 } else {
 
-                    response.sendRedirect("home.jsp");
+                    response.sendRedirect("home");
                 }
             } else {
                 request.setAttribute("errorMessage", "Invalid CAPTCHA");
