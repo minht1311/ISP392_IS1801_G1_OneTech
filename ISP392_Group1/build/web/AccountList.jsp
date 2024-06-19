@@ -106,7 +106,7 @@
             <!--**********************************
                 Nav header start
             ***********************************-->
-            <div class="nav-header">
+<!--            <div class="nav-header">
                 <div class="brand-logo">
                     <a href="home.jsp">
                         <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
@@ -116,7 +116,7 @@
                         </span>
                     </a>
                 </div>
-            </div>
+            </div>-->
             <!--**********************************
                 Nav header end
             ***********************************-->
@@ -156,7 +156,7 @@
                                 <div class="drop-down dropdown-profile   dropdown-menu">
                                     <div class="dropdown-content-body">
                                         <ul>
-                                           
+
                                             <li><a href="logout"><i class="icon-key"></i> <span>Logout</span></a></li>
                                         </ul>
                                     </div>
@@ -193,10 +193,11 @@
                                 <i class="icon-menu menu-icon"></i><span class="nav-text">Manage</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="ManageAccount" aria-expanded="false">Account List</a></li>
+                                <li><a href="ManageAccount" aria-expanded="false">Manage Account</a></li>
                                     <c:if test="${role eq 'user'}">
                                     <li><a href="ChangePassword" aria-expanded="false">Change Password</a></li>
                                     </c:if>
+                                <li><a href="manage" aria-expanded="false">Manage Product</a></li>
 
 
                             </ul>
