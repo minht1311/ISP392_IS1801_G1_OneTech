@@ -45,10 +45,6 @@
         <servlet-class>control.DetailControl</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Shop</servlet-name>
-        <servlet-class>category.Shop</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ShopFilter</servlet-name>
         <servlet-class>category.ShopFilter</servlet-class>
     </servlet>
@@ -103,10 +99,6 @@
     <servlet-mapping>
         <servlet-name>DetailControl</servlet-name>
         <url-pattern>/detail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Shop</servlet-name>
-        <url-pattern>/shop</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShopFilter</servlet-name>

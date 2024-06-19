@@ -390,41 +390,61 @@
                                     </div>
                                 </div>
                                 <!-- Pagination -->
-                                <div class="shop_page_nav d-flex flex-row">
-                                    <div id="page_prev" class="page_prev d-flex flex-column align-items-center justify-content-center">
-                                        <c:choose>
-                                            <c:when test="${page > 1}">
-                                                <a href="shop?index=${page-1}&cid=${currentCid}&sort_by=${currentSort}">
-                                                    <i class="fas fa-chevron-left"></i>
-                                                </a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <a href="#" class="disabled">
-                                                    <i class="fas fa-chevron-left"></i>
-                                                </a>
-                                            </c:otherwise>
-                                        </c:choose>
+                                <!--                                <div class="shop_page_nav d-flex flex-row">
+                                                                    <div id="page_prev" class="page_prev d-flex flex-column align-items-center justify-content-center">
+                                <c:choose>
+                                    <c:when test="${page > 1}">
+                                        <a href="shop?index=${page-1}&cid=${currentCid}&sort_by=${currentSort}">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" class="disabled">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <ul class="page_nav d-flex flex-row">
+                                <c:forEach begin="1" end="${endPage}" var="i">
+                                    <li class="page-item"> <a class="sidebar_title2 ${page == i ? "active":""}" href="shop?index=${i}&cid=${currentCid}&sort_by=${currentSort}">${i}</a></li>
+                                </c:forEach>
+                        </ul>
+                        <div id="page_next" class="page_next d-flex flex-column align-items-center justify-content-center">
+                                <c:choose>
+                                    <c:when test="${page < endPage}">
+                                        <a href="shop?index=${page+1}&cid=${currentCid}&sort_by=${currentSort}">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" class="disabled">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>-->
+                                <div class="row justify-content-center mt-3">
+                                    <div class="col-auto">
+                                        <button class="btn btn-primary" onclick="goToPreviousPage()">Previous</button>
                                     </div>
-                                    <ul class="page_nav d-flex flex-row">
-                                        <c:forEach begin="1" end="${endPage}" var="i">
-                                            <li class="page-item"> <a class="sidebar_title2 ${page == i ? "active":""}" href="shop?index=${i}&cid=${currentCid}&sort_by=${currentSort}">${i}</a></li>
-                                            </c:forEach>
-                                    </ul>
-                                    <div id="page_next" class="page_next d-flex flex-column align-items-center justify-content-center">
-                                        <c:choose>
-                                            <c:when test="${page < endPage}">
-                                                <a href="shop?index=${page+1}&cid=${currentCid}&sort_by=${currentSort}">
-                                                    <i class="fas fa-chevron-right"></i>
-                                                </a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <a href="#" class="disabled">
-                                                    <i class="fas fa-chevron-right"></i>
-                                                </a>
-                                            </c:otherwise>
-                                        </c:choose>
+                                    <div class="col-auto">
+                                        <input type="number" id="pageInput" class="form-control" placeholder="Page number" min="1" max="${endPage}" value="${page}">
+                                    </div>
+                                    <div class="col-auto align-self-center">
+                                        <span>/ ${endPage}</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn btn-primary" onclick="goToPage()">Go</button>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn btn-primary" onclick="goToNextPage()">Next</button>
                                     </div>
                                 </div>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -517,7 +537,80 @@
             </div>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+            <script>
+                                            function goToPage() {
+                                                var page = $('#pageInput').val();
+                                                var key = $('#searchKeyInput').val();
+                                                var order = $('#orderByInput').val();
+                                                var url = 'shop?index=' + page;
 
+                                                if (key) {
+                                                    url += '&key=' + encodeURIComponent(key);
+                                                }
+                                                if (order) {
+                                                    url += '&sort_by=' + encodeURIComponent(order);
+                                                }
+
+                                                if (page >= 1 && page <= ${endPage}) {
+                                                    window.location.href = url;
+                                                } else {
+                                                    alert('Please enter a valid page number from 1 to ' + ${endPage});
+                                                }
+                                            }
+
+                                            function goToPreviousPage() {
+                                                var currentPage = parseInt('${page}');
+                                                if (currentPage > 1) {
+                                                    var url = 'shop?index=' + (currentPage - 1) + '&cid=${currentCid}&sort_by=${currentSort}';
+                                                    window.location.href = url;
+                                                }
+                                            }
+
+                                            function goToNextPage() {
+                                                var currentPage = parseInt('${page}');
+                                                var endPage = parseInt('${endPage}');
+                                                if (currentPage < endPage) {
+                                                    var url = 'shop?index=' + (currentPage + 1) + '&cid=${currentCid}&sort_by=${currentSort}';
+                                                    window.location.href = url;
+                                                }
+                                            }
+
+                                            $(document).ready(function () {
+                                                var currentPage = parseInt('${page}');
+                                                var endPage = parseInt('${endPage}');
+                                                var paginationHtml = '';
+
+                                                paginationHtml += `<div class="col-auto">
+                                <button class="btn btn-primary" onclick="goToPreviousPage()">Previous</button>
+                            </div>`;
+
+
+                                                paginationHtml += `<div class="col-auto">
+                                <input type="number" id="pageInput" class="form-control" placeholder="Page" min="1" max="${endPage}" value="${currentPage}">
+                            </div>
+                            <div class="col-auto align-self-center">
+                                <span>/ ${endPage}</span>
+                            </div>`;
+
+                                                paginationHtml += `<div class="col-auto">
+                                <input type="number" id="pageInput" class="form-control" placeholder="Số trang" min="1" max="${endPage}" value="${currentPage}">
+                            </div>
+                            <div class="col-auto align-self-center">
+                                <span>/ ${endPage}</span>
+                            </div>`;
+
+                                                paginationHtml += `<div class="col-auto">
+                                <button class="btn btn-primary" onclick="goToPage()">Go</button>
+                            </div>`;
+
+                                                
+                                                paginationHtml += `<div class="col-auto">
+                                <button class="btn btn-primary" onclick="goToNextPage()">Next</button>
+                            </div>`;
+
+                                                $('#paginationContainer').html(paginationHtml);
+                                            });
+            </script>
 
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -536,7 +629,10 @@
             <script src="plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
             <script src="plugins/parallax-js-master/parallax.min.js"></script>
             <script src="js/shop_custom.js"></script>
-
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     </body>
 
 </html>
