@@ -127,7 +127,7 @@ public class RouterFilter implements Filter {
                     return; // Stop further processing after redirect
                 }
             } else {
-                if (url.contains("ManageAccount") || url.contains("UpdateProfile")
+                if (url.contains("ManageAccount") || url.contains("UpdateProfile") || url.endsWith("manage")
                         || url.endsWith("ChangePassword.jsp") || url.endsWith("UserProfile.jsp")) {
                     httpResponse.sendRedirect("home.jsp");
                     return; // Stop further processing after redirect
