@@ -165,6 +165,15 @@
 								<li><a href="shop">Shop<i class="fas fa-chevron-down"></i></a></li>
 								<li><a href="blog.html">Forum<i class="fas fa-chevron-down"></i></a></li>
 								<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+                                                                <li class="hassubs">
+									<a href="#">Policy<i class="fas fa-chevron-down"></i></a>
+									<ul>
+
+										<li><a href="TermOfUse.html">Term of use<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="PrivacyPolicy.html">Privacy Policy<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="SalePolicy.html">Sale Policy<i class="fas fa-chevron-down"></i></a></li>
+									</ul>
+								</li>
 							</ul>
 						</div>
 
